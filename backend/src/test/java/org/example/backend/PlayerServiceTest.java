@@ -28,7 +28,7 @@ class PlayerServiceTest {
     }
 
     @Test
-    void getScoreById() {
+    void getScoreById_returnsCorrectScore() {
         Player testPlayer = new Player("01", "test_user", "pw", Long.parseLong("1234"));
         when(mockRepo.findById(testPlayer.id()))
                 .thenReturn(Optional.of(testPlayer));
@@ -37,16 +37,16 @@ class PlayerServiceTest {
     }
 
     @Test
-    void updateScoreById() {
+    void updateScoreById_returnsUpdatedScore() {
         Player testPlayer = new Player("01", "test_user", "pw", Long.parseLong("1234"));
-        Long updatedScore = Long.parseLong("5678");
+        String updatedScore = "5678";
         when(mockRepo.findById(testPlayer.id()))
                 .thenReturn(Optional.of(testPlayer));
-        when(mockRepo.save(testPlayer.withScore(updatedScore)))
-                .thenReturn(testPlayer.withScore(updatedScore));
-        assertEquals(testPlayer.withScore(updatedScore), playerService.updateScoreById(testPlayer.id(), updatedScore));
+        when(mockRepo.save(testPlayer.withScore(Long.parseLong(updatedScore))))
+                .thenReturn(testPlayer.withScore(Long.parseLong(updatedScore)));
+        assertEquals(testPlayer.withScore(Long.parseLong(updatedScore)), playerService.updateScoreById(testPlayer.id(), updatedScore));
         verify(mockRepo).findById(testPlayer.id());
-        verify(mockRepo).save(testPlayer.withScore(updatedScore));
+        verify(mockRepo).save(testPlayer.withScore(Long.parseLong(updatedScore)));
     }
 
     @Test

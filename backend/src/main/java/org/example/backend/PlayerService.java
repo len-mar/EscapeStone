@@ -24,9 +24,9 @@ public class PlayerService {
         return playerRepo.findById(id).orElseThrow().score();
     }
 
-    Player updateScoreById(String id, Long score){
+    Player updateScoreById(String id, String score){
         Player player = playerRepo.findById(id).orElseThrow();
-        return playerRepo.save(player.withScore(score));
+        return playerRepo.save(player.withScore(Long.parseLong(score)));
     }
 
 }

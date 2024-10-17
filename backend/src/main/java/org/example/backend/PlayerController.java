@@ -25,7 +25,7 @@ public class PlayerController {
     }
 
     @PutMapping("/{id}/score")
-    Player updateScoreById(@PathVariable String id, @RequestBody Long score) {
+    Player updateScoreById(@PathVariable String id, @RequestBody String score) {
         return playerService.updateScoreById(id, score);
     }
 
