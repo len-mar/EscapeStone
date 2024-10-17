@@ -1,26 +1,28 @@
 package org.example.backend;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController {
+
+    private final UserService userService;
+
     @GetMapping("/{id}")
     User getUserById(@PathVariable String id){
-        // TODO: get actual user
-        return new User("01", "test_user", "pw", Long.parseLong("1234"));
+        return userService.getUserById(id);
     }
 
     @GetMapping("/{id}/score")
     Long getScoreById(@PathVariable String id){
-        // TODO: get actual score
-        return Long.parseLong("1234");
+        return userService.getScoreById(id);
     }
 
     @PutMapping("/{id}/score")
-    User updateScoreById(@PathVariable String id){
-        // TODO: update actual score
-        return new User("01", "test_user", "pw", Long.parseLong("1234"));
+    User updateScoreById(@PathVariable String id, @RequestBody Long score){
+        return userService.updateScoreById(id, score);
     }
 
 
