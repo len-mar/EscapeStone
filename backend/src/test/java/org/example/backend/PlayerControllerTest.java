@@ -21,14 +21,14 @@ class PlayerControllerTest {
 
     @Test
     void getPlayerById() throws Exception {
-        Player testPlayer = new Player("01", "test_user", "pw", Long.parseLong("1234"));
+        Player testPlayer = new Player("01", "test_player", "pw", Long.parseLong("1234"));
         testRepo.save(testPlayer);
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/" + testPlayer.id()))
+        mockMvc.perform(MockMvcRequestBuilders.get("/players/" + testPlayer.id()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                         {
                           "id": "01",
-                          "username": "test_user",
+                          "username": "test_player",
                           "password": "pw",
                           "score": 1234
                         }
