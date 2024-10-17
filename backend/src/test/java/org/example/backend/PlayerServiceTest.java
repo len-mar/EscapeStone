@@ -47,11 +47,16 @@ class PlayerServiceTest {
         assertEquals(testPlayer.withScore(updatedScore), playerService.updateScoreById(testPlayer.id(), updatedScore));
         verify(mockRepo).findById(testPlayer.id());
         verify(mockRepo).save(testPlayer.withScore(updatedScore));
-
     }
 
-    // TODO: implement
     @Test
-    void createPlayer() {
+    void createPlayer_returnsCorrectPlayer() {
+        PlayerDTO newPlayerDTO = new PlayerDTO("test-player", "test-pw");
+        Player newPlayer = new Player("01", newPlayerDTO.username(), newPlayerDTO.password(), Long.parseLong("0"));
+        when(mockRepo.save(any()))
+                .thenReturn(newPlayer);
+        Player createdPlayer = playerService.createPlayer(newPlayerDTO);
+        assertEquals(newPlayer.username(), createdPlayer.username());
+        assertEquals(newPlayer.password(), createdPlayer.password());
     }
 }
