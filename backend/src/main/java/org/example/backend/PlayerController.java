@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/players")
+@RequestMapping("/api/players")
 @RequiredArgsConstructor
 public class PlayerController {
 

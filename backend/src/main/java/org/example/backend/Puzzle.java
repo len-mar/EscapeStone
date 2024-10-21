@@ -1,4 +1,6 @@
 package org.example.backend;
 
-public record Puzzle(String id, String title, String body) {
+import org.springframework.data.annotation.Id;
+
+public record Puzzle(String puzzleId, String title, String body, String solution) {
 }
