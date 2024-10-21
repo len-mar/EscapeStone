@@ -1,7 +1,6 @@
 package org.example.backend;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public class PlayerService {
     }
 
     Player createPlayer(PlayerDTO newPlayerDTO){
-    return playerRepo.save(new Player(UUID.randomUUID().toString(), newPlayerDTO.username(), newPlayerDTO.password(), Long.parseLong("0"), List.of()));
+    return playerRepo.save(new Player(UUID.randomUUID().toString(), newPlayerDTO.username(), newPlayerDTO.password(), 0L, List.of()));
     }
 
     Long getScoreById(String id){
