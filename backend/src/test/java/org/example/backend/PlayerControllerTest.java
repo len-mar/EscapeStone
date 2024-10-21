@@ -10,6 +10,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.List;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @RequiredArgsConstructor
@@ -22,9 +24,9 @@ class PlayerControllerTest {
 
     @Test
     void getPlayerById() throws Exception {
-        Player testPlayer = new Player("01", "test_player", "pw", Long.parseLong("1234"));
+        Player testPlayer = new Player("01", "test_player", "pw", 1234L, List.of());
         testRepo.save(testPlayer);
-        mockMvc.perform(MockMvcRequestBuilders.get("/players/" + testPlayer.id()))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/players/" + testPlayer.id()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                         {
@@ -38,18 +40,18 @@ class PlayerControllerTest {
 
     @Test
     void getScoreById() throws Exception {
-        Player testPlayer = new Player("01", "test_player", "pw", Long.parseLong("1234"));
+        Player testPlayer = new Player("01", "test_player", "pw", 1234L, List.of());
         testRepo.save(testPlayer);
-        mockMvc.perform(MockMvcRequestBuilders.get("/players/" + testPlayer.id() + "/score"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/players/" + testPlayer.id() + "/score"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("1234"));
     }
 
     @Test
     void updateScoreById() throws Exception {
-        Player testPlayer = new Player("01", "test_player", "pw", Long.parseLong("1234"));
+        Player testPlayer = new Player("01", "test_player", "pw", 1234L, List.of());
         testRepo.save(testPlayer);
-        mockMvc.perform(MockMvcRequestBuilders.put("/players/" + testPlayer.id() + "/score")
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/players/" + testPlayer.id() + "/score")
                         .content("5678"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
@@ -64,7 +66,7 @@ class PlayerControllerTest {
 
     @Test
     void createPlayer() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/players/new")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/players/new")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                                 {
