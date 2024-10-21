@@ -2,6 +2,7 @@ package org.example.backend;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -14,7 +15,7 @@ class PlayerServiceTest {
 
     @Test
     void getPlayerById_returnsPlayer_ifPresent() {
-        Player testPlayer = new Player("01", "test_player", "pw", Long.parseLong("1234"));
+        Player testPlayer = new Player("01", "test_player", "pw", 1234L, List.of());
         when(mockRepo.findById(testPlayer.id()))
                 .thenReturn(Optional.of(testPlayer));
 
@@ -29,7 +30,7 @@ class PlayerServiceTest {
 
     @Test
     void getScoreById_returnsCorrectScore() {
-        Player testPlayer = new Player("01", "test_user", "pw", Long.parseLong("1234"));
+        Player testPlayer = new Player("01", "test_user", "pw", 1234L, List.of());
         when(mockRepo.findById(testPlayer.id()))
                 .thenReturn(Optional.of(testPlayer));
         assertEquals(Long.parseLong("1234"), playerService.getScoreById(testPlayer.id()));
@@ -38,7 +39,7 @@ class PlayerServiceTest {
 
     @Test
     void updateScoreById_returnsUpdatedScore() {
-        Player testPlayer = new Player("01", "test_user", "pw", Long.parseLong("1234"));
+        Player testPlayer = new Player("01", "test_user", "pw", 1234L, List.of());
         String updatedScore = "5678";
         when(mockRepo.findById(testPlayer.id()))
                 .thenReturn(Optional.of(testPlayer));
@@ -52,7 +53,7 @@ class PlayerServiceTest {
     @Test
     void createPlayer_returnsCorrectPlayer() {
         PlayerDTO newPlayerDTO = new PlayerDTO("test-player", "test-pw");
-        Player newPlayer = new Player("01", newPlayerDTO.username(), newPlayerDTO.password(), Long.parseLong("0"));
+        Player newPlayer = new Player("01", newPlayerDTO.username(), newPlayerDTO.password(), 0L, List.of());
         when(mockRepo.save(any()))
                 .thenReturn(newPlayer);
         Player createdPlayer = playerService.createPlayer(newPlayerDTO);
