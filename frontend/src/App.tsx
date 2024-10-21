@@ -1,16 +1,14 @@
-import {useEffect} from 'react'
 import './App.css'
+import { Button } from '@mui/material';
 
 function App() {
-
-    useEffect(() => {
-    },[])
 
   return (
     <>
         <p>
           Hello, puzzlers!
         </p>
+        <Button>i am a mui button</Button>
     </>
   )
 }
