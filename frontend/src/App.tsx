@@ -16,16 +16,14 @@ function App() {
     return (
         <>
             <Routes>
-                <Route path={"/"} element={<LandingPage/>}></Route>
-                <Route path={"/signup"} element={<SignUpPage/>}></Route>
-                <Route path={"/home"} element={<HomePage/>}></Route>
-                <Route path={"/game"} element={<GamePage/>}></Route>
-                <Route path={"/imprint"} element={<ImprintPage/>}></Route>
-                <Route path={"/contact"} element={<ContactPage/>}></Route>
-                <Route path={"/profile"} element={<ProfilePage/>}></Route>
-                <Route path={"/scores"} element={<ScorePage/>}></Route>
-
-
+                <Route path={"/"} element={<LandingPage/>}/>
+                <Route path={"/signup"} element={<SignUpPage/>}/>
+                <Route path={"/home"} element={<HomePage/>}/>
+                <Route path={"/game"} element={<GamePage/>}/>
+                <Route path={"/imprint"} element={<ImprintPage/>}/>
+                <Route path={"/contact"} element={<ContactPage/>}/>
+                <Route path={"/profile"} element={<ProfilePage/>}/>
+                <Route path={"/scores"} element={<ScorePage/>}/>
             </Routes>
         </>
     )
