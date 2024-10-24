@@ -7,8 +7,8 @@ import {useNavigate} from "react-router-dom";
         return(
         <>
             <Stack>
-                <TextField id="outlined-basic" label="Username" variant="outlined" />
-                <TextField id="outlined-basic" label="Password" variant="outlined" />
+                <TextField id="username" label="Username" variant="outlined" />
+                <TextField id="password" label="Password" variant="outlined" />
                 <Button>Login</Button>
             </Stack>
                 <Button onClick={() => navigate('/signup')}>Sign Up</Button>
