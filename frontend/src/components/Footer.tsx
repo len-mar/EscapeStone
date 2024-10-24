@@ -5,8 +5,9 @@ export function Footer(){
         <AppBar position="static">
             <Toolbar>
                 <Box>
-                    <Button color="inherit" href="#home">Imprint</Button>
-                    <Button color="inherit" href="#contact">Contact</Button>
+                    <Button color="inherit" href="/home">home</Button>
+                    <Button color="inherit" href="/imprint">Imprint</Button>
+                    <Button color="inherit" href="/contact">Contact</Button>
                 </Box>
             </Toolbar>
         </AppBar>
