@@ -1,6 +1,7 @@
-package org.example.backend;
+package org.example.backend.player;
 
 import lombok.With;
+import org.example.backend.puzzle.Puzzle;
 
 import java.util.List;
 
