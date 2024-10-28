@@ -1,12 +1,15 @@
 import {InputForm} from "../InputForm.tsx";
-import {Header} from "../Header.tsx";
-import {Footer} from "../Footer.tsx";
+import {Typography} from "@mui/material";
 
-export function SignUpPage(){
+type Props = {
+    signUpPage:boolean,
+    isSignUpPage:(signUpPage:boolean) => void
+}
+
+export function SignUpPage(props:Props) {
+    props.isSignUpPage(true)
     return <>
-        <Header/>
-        <p>signup page</p>
-        <InputForm/>
-        <Footer/>
-
-    </>}
+        <Typography variant={"h2"}>Sign Up</Typography>
+        <InputForm signUpPage={props.signUpPage}/>
+    </>
+}

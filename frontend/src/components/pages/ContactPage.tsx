@@ -1,10 +1,9 @@
-import {Header} from "../Header.tsx";
-import {Footer} from "../Footer.tsx";
+import {Typography} from "@mui/material";
 
 export function ContactPage() {
     return <>
-        <Header/>
-        <p>contact page</p>
-        <Footer/>
+        <Typography variant={"h2"}>Contact Us!</Typography>
+        <Typography variant={"h5"}>email@email.com</Typography>
+        <Typography variant={"h5"}>0123 45678 (fees may apply)</Typography>
     </>
 }

@@ -1,17 +1,24 @@
-import {Button, Stack, TextField} from "@mui/material";
-import {useNavigate} from "react-router-dom";
+import {Button, TextField} from "@mui/material";
+import {useState} from "react";
 
-    export function InputForm(){
-        const navigate = useNavigate();
+type Props = {
+    signUpPage:boolean
+}
+    export function InputForm(props:Props){
+        const [usernameInput, setUsernameInput] = useState<string>("")
+        const [passwordInput, setPasswordInput] = useState<string>("")
+
+        /*
+        function handleSubmit():void {
+            axios.post("api/login?username=" + usernameInput + "&password=" + passwordInput).catch(error => console.error(error));
+        }
+        */
 
         return(
         <>
-            <Stack>
-                <TextField id="username" label="Username" variant="outlined" />
-                <TextField id="password" label="Password" variant="outlined" />
-                <Button>Login</Button>
-            </Stack>
-                <Button onClick={() => navigate('/signup')}>Sign Up</Button>
+                <TextField id="username" label="Username" variant="outlined" value={usernameInput} onChange={(e)=> setUsernameInput(e.target.value)}/>
+                <TextField id="password" label="Password" variant="outlined" value={passwordInput} onChange={(e)=> setPasswordInput(e.target.value)}/>
+                {props.signUpPage ? <Button variant={"contained"}>Sign Up</Button> : <Button variant={"contained"}>Login</Button>}
         </>
     )
 }

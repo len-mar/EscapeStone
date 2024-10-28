@@ -1,4 +1,4 @@
-package org.example.backend;
+package org.example.backend.player;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

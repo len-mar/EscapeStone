@@ -1,14 +1,20 @@
 import {InputForm} from "../InputForm.tsx";
-import {Header} from "../Header.tsx";
-import {Footer} from "../Footer.tsx";
+import {Button, Typography} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
-export function LoginPage(){
+type Props = {
+    signUpPage:boolean,
+    isSignUpPage:(signUpPage:boolean) => void
+}
+
+export function LoginPage(props:Props){
+    props.isSignUpPage(false)
+    const navigate = useNavigate();
+
     return <>
-        <Header/>
-
-        <p>login page</p>
-        <InputForm/>
-        <Footer/>
-
+        <Typography variant={"h2"}>Welcome.</Typography>
+        <Typography variant={"h4"}>To continue, please log in.</Typography>
+        <InputForm signUpPage={props.signUpPage}/>
+        <Button variant={"outlined"} onClick={() => navigate('/signup')}>No account yet? Sign Up</Button>
     </>
 }

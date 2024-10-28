@@ -1,6 +1,4 @@
-package org.example.backend;
-
-import lombok.With;
+package org.example.backend.player;
 
 // FIXME: with hash function
 public record PlayerDTO(String username, String password) {

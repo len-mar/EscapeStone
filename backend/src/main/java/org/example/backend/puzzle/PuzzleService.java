@@ -1,8 +1,7 @@
-package org.example.backend;
+package org.example.backend.puzzle;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -22,6 +21,6 @@ public class PuzzleService {
                 digits.add(digit);
             }
         }
-        return digits.stream().map((digit) -> puzzleRepo.findByPuzzleId(digit.toString()).orElseThrow()).toList();
+        return digits.stream().map(digit -> puzzleRepo.findByPuzzleId(digit.toString()).orElseThrow()).toList();
     }
 }
