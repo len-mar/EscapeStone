@@ -1,5 +1,5 @@
 import {GameBody} from "../GameBody.tsx";
-import {Button, Stack, TextField} from "@mui/material";
+import {Button, Stack, TextField, Typography} from "@mui/material";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
@@ -9,8 +9,9 @@ export function GamePage() {
     const navigate = useNavigate();
 
     return <>
-        <h1>Welcome to the room.</h1>
-        <h2>This is puzzle #{puzzleNumber}.</h2>
+        <Typography variant={"h2"}>Welcome to the room.</Typography>
+        <Typography variant={"h3"}>This is puzzle #{puzzleNumber}.</Typography>
+
         <GameBody/>
         <Stack>
             <TextField placeholder={"Enter your answer here."}></TextField>

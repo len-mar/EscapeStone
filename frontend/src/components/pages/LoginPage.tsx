@@ -1,5 +1,5 @@
 import {InputForm} from "../InputForm.tsx";
-import {Button} from "@mui/material";
+import {Button, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 
 type Props = {
@@ -12,8 +12,8 @@ export function LoginPage(props:Props){
     const navigate = useNavigate();
 
     return <>
-        <h1>Welcome!</h1>
-        <h2>To continue, please log in.</h2>
+        <Typography variant={"h2"}>Welcome.</Typography>
+        <Typography variant={"h4"}>To continue, please log in.</Typography>
 
         <InputForm signUpPage={props.signUpPage}/>
         <Button onClick={() => navigate('/signup')}>No account yet? Sign Up</Button>

@@ -19,7 +19,7 @@ type Props = {
             <Stack>
                 <TextField id="username" label="Username" variant="outlined" value={usernameInput} onChange={(e)=> setUsernameInput(e.target.value)}/>
                 <TextField id="password" label="Password" variant="outlined" value={passwordInput} onChange={(e)=> setPasswordInput(e.target.value)}/>
-                {props.signUpPage ? <Button>SignUp</Button> : <Button>Login</Button>}
+                {props.signUpPage ? <Button>Sign Up</Button> : <Button>Login</Button>}
             </Stack>
         </>
     )

@@ -1,4 +1,5 @@
 import {InputForm} from "../InputForm.tsx";
+import {Typography} from "@mui/material";
 
 type Props = {
     signUpPage:boolean,
@@ -8,7 +9,7 @@ type Props = {
 export function SignUpPage(props:Props) {
     props.isSignUpPage(true)
     return <>
-        <h1>Sign Up</h1>
+        <Typography variant={"h2"}>Sign Up</Typography>
         <InputForm signUpPage={props.signUpPage}/>
     </>
 }

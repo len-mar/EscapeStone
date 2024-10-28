@@ -1,5 +1,5 @@
 
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 
 export function ScorePage() {
     const dummyScores = [{player: "John", score: 1000},
@@ -8,7 +8,7 @@ export function ScorePage() {
         {player: "Jill", score: 200},
     ].sort((a,b) => b.score - a.score)
     return <>
-        <h1>Scoreboard</h1>
+        <Typography variant={"h2"}>Scoreboard</Typography>
         <TableContainer>
             <Table>
                 <TableHead>

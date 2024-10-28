@@ -1,8 +1,9 @@
+import {Typography} from "@mui/material";
+
 export function ContactPage() {
     return <>
-        <h1>Contact Us!</h1>
-        <p>email@email.com</p>
-        <p>0123 45678 (fees may apply)</p>
-
+        <Typography variant={"h2"}>Contact Us!</Typography>
+        <Typography variant={"body1"}>email@email.com</Typography>
+        <Typography variant={"body1"}>0123 45678 (fees may apply)</Typography>
     </>
 }
