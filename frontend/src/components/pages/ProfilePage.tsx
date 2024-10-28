@@ -1,10 +1,11 @@
-import {Header} from "../Header.tsx";
-import {Footer} from "../Footer.tsx";
+import {Avatar} from "@mui/material";
 
 export function ProfilePage() {
     return <>
-        <Header/>
-        <p>profile page</p>
-        <Footer/>
+        <h1>Profile</h1>
+        <h2>Max Mustermann</h2>
+        <Avatar alt="your profile pic" src="/src/avatar.jpg" sx={{width: 50, height: 50}}/>
+        <p>Puzzles solved:</p>
+        <p>Rooms solved:</p>
     </>
 }

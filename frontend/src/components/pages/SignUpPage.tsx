@@ -1,12 +1,10 @@
 import {InputForm} from "../InputForm.tsx";
-import {Header} from "../Header.tsx";
-import {Footer} from "../Footer.tsx";
 
-export function SignUpPage(){
+export function SignUpPage(props) {
+    props.isSignUpPage(true)
     return <>
-        <Header/>
-        <p>signup page</p>
-        <InputForm/>
-        <Footer/>
+        <h1>Sign Up</h1>
+        <InputForm signUpPage={props.signUpPage} isSignUpPage={props.isSignUpPage}/>
 
-    </>}
+    </>
+}
