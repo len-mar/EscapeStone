@@ -21,6 +21,6 @@ public class PuzzleService {
                 digits.add(digit);
             }
         }
-        return digits.stream().map((digit) -> puzzleRepo.findByPuzzleId(digit.toString()).orElseThrow()).toList();
+        return digits.stream().map(digit -> puzzleRepo.findByPuzzleId(digit.toString()).orElseThrow()).toList();
     }
 }
