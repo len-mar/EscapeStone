@@ -14,8 +14,7 @@ export function LoginPage(props:Props){
     return <>
         <Typography variant={"h2"}>Welcome.</Typography>
         <Typography variant={"h4"}>To continue, please log in.</Typography>
-
         <InputForm signUpPage={props.signUpPage}/>
-        <Button onClick={() => navigate('/signup')}>No account yet? Sign Up</Button>
+        <Button variant={"outlined"} onClick={() => navigate('/signup')}>No account yet? Sign Up</Button>
     </>
 }

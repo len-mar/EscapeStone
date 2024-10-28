@@ -1,20 +1,16 @@
-import {Button, Stack, Typography} from "@mui/material";
+import {Button, Typography} from "@mui/material";
 
 
 export function HomePage() {
 
     return <>
 
-        <Typography variant={"h2"}>Home</Typography>
+        <Typography variant={"h4"}>Start a new game ...</Typography>
 
-        <Stack>
-            <Button variant={"outlined"} href="/game">New Game</Button>
-            <Button variant={"contained"}>Continue</Button>
-        </Stack>
+            <Button variant={"contained"} href="/game">New Game</Button>
+        <Typography variant={"h4"}>...or continue where you left off.</Typography>
 
-        <Typography variant={"h4"}>Start a new game or continue where you left off.</Typography>
-
-
+        <Button variant={"outlined"}>Continue</Button>
 
     </>
 }

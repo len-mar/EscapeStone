@@ -1,4 +1,4 @@
-import {Button, Stack, TextField} from "@mui/material";
+import {Button, TextField} from "@mui/material";
 import {useState} from "react";
 
 type Props = {
@@ -16,11 +16,9 @@ type Props = {
 
         return(
         <>
-            <Stack>
                 <TextField id="username" label="Username" variant="outlined" value={usernameInput} onChange={(e)=> setUsernameInput(e.target.value)}/>
                 <TextField id="password" label="Password" variant="outlined" value={passwordInput} onChange={(e)=> setPasswordInput(e.target.value)}/>
-                {props.signUpPage ? <Button>Sign Up</Button> : <Button>Login</Button>}
-            </Stack>
+                {props.signUpPage ? <Button variant={"contained"}>Sign Up</Button> : <Button variant={"contained"}>Login</Button>}
         </>
     )
 }

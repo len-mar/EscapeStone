@@ -9,8 +9,8 @@ export function GamePage() {
     const navigate = useNavigate();
 
     return <>
-        <Typography variant={"h2"}>Welcome to the room.</Typography>
-        <Typography variant={"h3"}>This is puzzle #{puzzleNumber}.</Typography>
+        <Typography variant={"h4"}>Welcome to the room.</Typography>
+        <Typography variant={"h2"}>This is puzzle #{puzzleNumber}.</Typography>
 
         <GameBody/>
         <Stack>
