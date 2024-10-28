@@ -1,10 +1,14 @@
 import {InputForm} from "../InputForm.tsx";
 
-export function SignUpPage(props) {
+type Props = {
+    signUpPage:boolean,
+    isSignUpPage:(signUpPage:boolean) => void
+}
+
+export function SignUpPage(props:Props) {
     props.isSignUpPage(true)
     return <>
         <h1>Sign Up</h1>
-        <InputForm signUpPage={props.signUpPage} isSignUpPage={props.isSignUpPage}/>
-
+        <InputForm signUpPage={props.signUpPage}/>
     </>
 }

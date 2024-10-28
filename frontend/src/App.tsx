@@ -25,7 +25,7 @@ function App() {
             <Container fixed sx={{height: '500px', width: '600px', overflow: 'hidden'}}>
                 <Box sx={{overflowY: 'scroll', maxHeight: '100%'}}>
                     <Routes>
-                        <Route path={"/"} element={<LoginPage/>}/>
+                        <Route path={"/"} element={<LoginPage signUpPage={signUpPage} isSignUpPage={isSignUpPage}/>}/>
                         <Route path={"/login"}
                                element={<LoginPage signUpPage={signUpPage} isSignUpPage={isSignUpPage}/>}/>
                         <Route path={"/signup"}
