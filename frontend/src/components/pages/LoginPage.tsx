@@ -12,7 +12,9 @@ export function LoginPage(props:Props){
     const navigate = useNavigate();
 
     return <>
-        <p>Welcome! To continue, please log in.</p>
+        <h1>Welcome!</h1>
+        <h2>To continue, please log in.</h2>
+
         <InputForm signUpPage={props.signUpPage}/>
         <Button onClick={() => navigate('/signup')}>No account yet? Sign Up</Button>
     </>
