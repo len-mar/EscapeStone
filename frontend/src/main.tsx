@@ -8,12 +8,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme({
     palette: {
         primary: {
-            main: '#004e3a',  // Customize primary color
+            main: '#004e3a',
         },
         secondary: {
-            main: '#dc004e',  // Customize secondary color
+            main: '#dc004e',
         },
-        // You can also customize other colors like `background`, `error`, etc.
     },
 });
 
