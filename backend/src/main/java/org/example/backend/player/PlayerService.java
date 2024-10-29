@@ -12,21 +12,26 @@ public class PlayerService {
 
     private final PlayerRepo playerRepo;
 
+    public List<Player> getAllPlayers(){
+        return playerRepo.findAll();
+    }
+
     Player getPlayerById(String id){
         return playerRepo.findById(id).orElseThrow();
     }
 
     Player createPlayer(PlayerDTO newPlayerDTO){
-    return playerRepo.save(new Player(UUID.randomUUID().toString(), newPlayerDTO.username(), newPlayerDTO.password(), 0L, List.of()));
+    return playerRepo.save(new Player(UUID.randomUUID().toString(), newPlayerDTO.username(), newPlayerDTO.email(), newPlayerDTO.password(), 0L, List.of()));
     }
 
     Long getScoreById(String id){
-        return playerRepo.findById(id).orElseThrow().score();
+        return playerRepo.findById(id).orElseThrow().getScore();
     }
 
     Player updateScoreById(String id, String score){
         Player player = playerRepo.findById(id).orElseThrow();
-        return playerRepo.save(player.withScore(Long.parseLong(score)));
+        player.setScore(Long.parseLong(score));
+        return playerRepo.save(player);
     }
 
 }

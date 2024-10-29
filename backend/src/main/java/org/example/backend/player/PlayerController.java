@@ -1,7 +1,12 @@
 package org.example.backend.player;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/players")
@@ -9,6 +14,19 @@ import org.springframework.web.bind.annotation.*;
 public class PlayerController {
 
     private final PlayerService playerService;
+
+    @GetMapping("/me")
+    public ResponseEntity<Player> authenticatedPlayer() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Player currentPlayer = (Player) authentication.getPrincipal();
+        return ResponseEntity.ok(currentPlayer);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Player>> getAllPlayers() {
+        List <Player> players = playerService.getAllPlayers();
+        return ResponseEntity.ok(players);
+    }
 
     @GetMapping("/{id}")
     Player getPlayerById(@PathVariable String id) {
