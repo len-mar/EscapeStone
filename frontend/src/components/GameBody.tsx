@@ -1,10 +1,13 @@
 import {Typography} from "@mui/material";
+import {Puzzle} from "./pages/GamePage.tsx";
 
-export function GameBody() {
+type Props = {
+    puzzle:Puzzle
+}
+
+export function GameBody(props:Props) {
     return <>
-        <Typography variant={"body1"}> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-            tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
-            duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        <Typography variant={"body1"}> {props.puzzle.body}
         </Typography>
     </>
 }
