@@ -20,9 +20,10 @@ public class PlayerService {
         return playerRepo.findById(id).orElseThrow();
     }
 
-    Player createPlayer(PlayerDTO newPlayerDTO){
-    return playerRepo.save(new Player(UUID.randomUUID().toString(), newPlayerDTO.username(), newPlayerDTO.email(), newPlayerDTO.password(), 0L, List.of()));
-    }
+    // TODO: delete me when tests are done
+//    Player createPlayer(PlayerDTO newPlayerDTO){
+//    return playerRepo.save(new Player(UUID.randomUUID().toString(), newPlayerDTO.username(), newPlayerDTO.email(), newPlayerDTO.password(), 0L, List.of()));
+//    }
 
     Long getScoreById(String id){
         return playerRepo.findById(id).orElseThrow().getScore();

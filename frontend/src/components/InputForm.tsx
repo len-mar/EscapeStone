@@ -1,24 +1,37 @@
 import {Button, TextField} from "@mui/material";
 import {useState} from "react";
+import axios from "axios";
 
 type Props = {
-    signUpPage:boolean
+    signUpPage: boolean
 }
-    export function InputForm(props:Props){
-        const [usernameInput, setUsernameInput] = useState<string>("")
-        const [passwordInput, setPasswordInput] = useState<string>("")
 
-        /*
-        function handleSubmit():void {
-            axios.post("api/login?username=" + usernameInput + "&password=" + passwordInput).catch(error => console.error(error));
-        }
-        */
+export function InputForm(props: Props) {
+    const [usernameInput, setUsernameInput] = useState<string>("")
+    const [passwordInput, setPasswordInput] = useState<string>("")
+    const [emailInput, setEmailInput] = useState<string>("")
 
-        return(
+
+    function handleSubmit():void {
+        axios.post("/auth/signup", {username: usernameInput, email: emailInput, password: passwordInput})
+            // TODO: remove after testing
+            .then(response => console.log(response.data))
+            .catch(error => console.error(error));
+    }
+
+
+    return (
         <>
-                <TextField id="username" label="Username" variant="outlined" value={usernameInput} onChange={(e)=> setUsernameInput(e.target.value)}/>
-                <TextField id="password" label="Password" variant="outlined" value={passwordInput} onChange={(e)=> setPasswordInput(e.target.value)}/>
-                {props.signUpPage ? <Button variant={"contained"}>Sign Up</Button> : <Button variant={"contained"}>Login</Button>}
+            {props.signUpPage && <TextField id="username" label="Username" variant="outlined" value={usernameInput}
+                                           onChange={(e) => setUsernameInput(e.target.value)}/>}
+
+            <TextField id="email" label="Email" variant="outlined" value={emailInput}
+                       onChange={(e) => setEmailInput(e.target.value)}/>
+            <TextField id="password" label="Password" variant="outlined" value={passwordInput}
+                       onChange={(e) => setPasswordInput(e.target.value)}/>
+
+            {props.signUpPage ? <Button variant={"contained"} onClick={handleSubmit}>Sign Up</Button> :
+                <Button variant={"contained"}>Login</Button>}
         </>
     )
 }

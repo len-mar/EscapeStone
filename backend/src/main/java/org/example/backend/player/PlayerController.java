@@ -33,10 +33,10 @@ public class PlayerController {
         return playerService.getPlayerById(id);
     }
 
-    @PostMapping("/new")
-    Player createPlayer(@RequestBody PlayerDTO newPlayerDTO){
-        return playerService.createPlayer(newPlayerDTO);
-    }
+//    @PostMapping("/new")
+//    Player createPlayer(@RequestBody PlayerDTO newPlayerDTO){
+//        return playerService.createPlayer(newPlayerDTO);
+//    }
     @GetMapping("/{id}" + "/score")
     Long getScoreById(@PathVariable String id) {
         return playerService.getScoreById(id);

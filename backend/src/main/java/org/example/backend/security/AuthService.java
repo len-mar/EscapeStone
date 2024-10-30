@@ -9,6 +9,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -16,14 +18,16 @@ public class AuthService {
     private final PlayerRepo playerRepo;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-
-// TODO: setup player to also have the score and list of solved puzzles ready
+// todo: test
     public Player signup(RegisterPlayerDTO input) {
-        Player player = new Player();
-        player.setUsername(input.getUsername());
-        player.setEmail(input.getEmail());
-        player.setPassword(passwordEncoder.encode(input.getPassword()));
-
+        Player player = Player.builder()
+                .id(UUID.randomUUID().toString())
+                .username(input.getUsername())
+                .email(input.getEmail())
+                .password(passwordEncoder.encode(input.getPassword()))
+                .score(0L)
+                .solvedPuzzles(List.of())
+                .build();
         return playerRepo.save(player);
     }
 
