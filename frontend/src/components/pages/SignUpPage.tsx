@@ -6,7 +6,6 @@ type Props = {
     isSignUpPage:(signUpPage:boolean) => void
 }
 
-// TODO: implement signup to endpoint
 export function SignUpPage(props:Props) {
     props.isSignUpPage(true)
     return <>

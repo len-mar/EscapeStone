@@ -12,13 +12,14 @@ export function InputForm(props: Props) {
     const [emailInput, setEmailInput] = useState<string>("")
 
 
-    function handleSubmit():void {
+    function handleSignup():void {
         axios.post("/auth/signup", {username: usernameInput, email: emailInput, password: passwordInput})
-            // TODO: remove after testing
-            .then(response => console.log(response.data))
             .catch(error => console.error(error));
     }
-
+    function handleLogin():void {
+        axios.post("/auth/login", {email: emailInput, password: passwordInput})
+            .catch(error => console.error(error));
+    }
 
     return (
         <>
@@ -30,8 +31,8 @@ export function InputForm(props: Props) {
             <TextField id="password" label="Password" variant="outlined" value={passwordInput}
                        onChange={(e) => setPasswordInput(e.target.value)}/>
 
-            {props.signUpPage ? <Button variant={"contained"} onClick={handleSubmit}>Sign Up</Button> :
-                <Button variant={"contained"}>Login</Button>}
+            {props.signUpPage ? <Button variant={"contained"} onClick={handleSignup}>Sign Up</Button> :
+                <Button variant={"contained"} onClick={handleLogin}>Login</Button>}
         </>
     )
 }

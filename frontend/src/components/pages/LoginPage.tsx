@@ -6,7 +6,7 @@ type Props = {
     signUpPage:boolean,
     isSignUpPage:(signUpPage:boolean) => void
 }
-// TODO: implement login to endpoint
+
 export function LoginPage(props:Props){
     props.isSignUpPage(false)
     const navigate = useNavigate();
