@@ -9,6 +9,8 @@ jobs:
   build:
     name: Build and analyze
     runs-on: ubuntu-latest
+    env:
+      JWT_KEY: {{secrets.JWT_KEY}}
     steps:
       - uses: actions/checkout@v4
         with:
