@@ -15,6 +15,7 @@ public class PlayerController {
 
     private final PlayerService playerService;
 
+    // FIXME: anonymousUser handling to no longer throw errors
     @GetMapping("/me")
     public ResponseEntity<Player> authenticatedPlayer() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -40,10 +41,6 @@ public class PlayerController {
         return playerService.getPlayerById(id);
     }
 
-//    @PostMapping("/new")
-//    Player createPlayer(@RequestBody PlayerDTO newPlayerDTO){
-//        return playerService.createPlayer(newPlayerDTO);
-//    }
     @GetMapping("/{id}" + "/score")
     Long getScoreById(@PathVariable String id) {
         return playerService.getScoreById(id);
