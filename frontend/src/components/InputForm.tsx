@@ -1,16 +1,17 @@
 import {Alert, Button, TextField} from "@mui/material";
 import {useState} from "react";
-import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 type Props = {
     signUpPage: boolean
 }
-// TODO: redirect to home from both signup and login
+
 export function InputForm(props: Props) {
     const [usernameInput, setUsernameInput] = useState<string>("")
     const [passwordInput, setPasswordInput] = useState<string>("")
     const [uniqueUsername, setUniqueUsername] = useState<string>("new")
     const [signupSuccessful, isSignupSuccessful] = useState<boolean>(false)
+    const navigate = useNavigate()
 
     const handleSignup = async () => {
         try {
@@ -33,15 +34,27 @@ export function InputForm(props: Props) {
             const signupData = await signupResponse.json();
             console.log('User signed up successfully:', signupData);
             isSignupSuccessful(true)
+            navigate("/home")
         } catch (error) {
             console.error('Error during signup process:', error);
             isSignupSuccessful(false)
         }
     };
 
-    function handleLogin(): void {
-        axios.post("/auth/login", {username: usernameInput, password: passwordInput})
-            .catch(error => console.error(error));
+    const handleLogin = async () => {
+        try {
+            const loginResponse = await fetch('/auth/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({username: usernameInput, password: passwordInput}),
+            });
+
+            const loginData = await loginResponse.json();
+            console.log('User logged in successfully:', loginData);
+            navigate("/home")
+        } catch (error) {
+            console.error('Error during login process:', error);
+        }
     }
 
 

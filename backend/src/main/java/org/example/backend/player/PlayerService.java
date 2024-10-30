@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,11 +18,6 @@ public class PlayerService {
     Player getPlayerById(String id){
         return playerRepo.findById(id).orElseThrow();
     }
-
-    // TODO: delete me when tests are done
-//    Player createPlayer(PlayerDTO newPlayerDTO){
-//    return playerRepo.save(new Player(UUID.randomUUID().toString(), newPlayerDTO.username(), newPlayerDTO.email(), newPlayerDTO.password(), 0L, List.of()));
-//    }
 
     Long getScoreById(String id){
         return playerRepo.findById(id).orElseThrow().getScore();

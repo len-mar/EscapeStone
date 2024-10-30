@@ -1,5 +1,7 @@
 package org.example.backend.security;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.example.backend.player.LoginPlayerDTO;
 import org.example.backend.player.Player;
@@ -26,13 +28,17 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginPlayerDTO loginPlayerDTO) {
+    public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginPlayerDTO loginPlayerDTO, HttpServletResponse response) {
         Player authenticatedPlayer = authenticationService.authenticate(loginPlayerDTO);
 
         String jwtToken = jwtService.generateToken(authenticatedPlayer);
 
         LoginResponse loginResponse = new LoginResponse(jwtToken, jwtService.getExpirationTime());
-
+        Cookie cookie = new Cookie("token", jwtToken);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        response.addCookie(cookie);
         return ResponseEntity.ok(loginResponse);
     }
 }

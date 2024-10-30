@@ -18,6 +18,7 @@ public class PlayerController {
     @GetMapping("/me")
     public ResponseEntity<Player> authenticatedPlayer() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(authentication);
         Player currentPlayer = (Player) authentication.getPrincipal();
         return ResponseEntity.ok(currentPlayer);
     }
