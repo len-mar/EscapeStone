@@ -10,7 +10,6 @@ export function InputForm(props: Props) {
     const [usernameInput, setUsernameInput] = useState<string>("")
     const [passwordInput, setPasswordInput] = useState<string>("")
     const [uniqueUsername, setUniqueUsername] = useState<string>("new")
-    const [signupSuccessful, isSignupSuccessful] = useState<boolean>(false)
     const navigate = useNavigate()
 
     const handleSignup = async () => {
@@ -18,9 +17,8 @@ export function InputForm(props: Props) {
             const checkResponse = await fetch(`/api/players/check/` + usernameInput);
             const isUnique = await checkResponse.json();
             if (!isUnique) {
-                console.log('Username not unique');
+                console.log('Username not unique')
                 setUniqueUsername("false")
-                isSignupSuccessful(false)
                 return;
             }
 
@@ -31,14 +29,13 @@ export function InputForm(props: Props) {
                 body: JSON.stringify({username: usernameInput, password: passwordInput}),
             });
 
-            const signupData = await signupResponse.json();
-            console.log('User signed up successfully:', signupData);
-            isSignupSuccessful(true)
-            navigate("/home")
+            const signupData = await signupResponse.json()
+            navigate("/login")
+            console.log('User signed up successfully:', signupData)
         } catch (error) {
-            console.error('Error during signup process:', error);
-            isSignupSuccessful(false)
+            console.error('Error during signup process:', error)
         }
+
     };
 
     const handleLogin = async () => {
@@ -61,7 +58,6 @@ export function InputForm(props: Props) {
     return (
         <>
             {(uniqueUsername === "false" && props.signUpPage) && <Alert severity="error">Username already taken. Please choose another.</Alert>}
-            {signupSuccessful && <Alert severity="success">Signup successful!</Alert>}
             <TextField id="username" label="Username" variant="outlined" value={usernameInput}
                        onChange={(e) => setUsernameInput(e.target.value)}/>
 
