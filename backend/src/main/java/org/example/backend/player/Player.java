@@ -19,7 +19,6 @@ public class Player implements UserDetails {
     @Id
     private String id;
     private String username;
-    private String email;
     private String password;
     private Long score;
     private List<String> solvedPuzzles;

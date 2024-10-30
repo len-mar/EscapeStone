@@ -27,7 +27,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**")
+                .requestMatchers("/api/players/check/*", "/auth/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

@@ -28,6 +28,12 @@ public class PlayerController {
         return ResponseEntity.ok(players);
     }
 
+    @GetMapping("/check/{username}")
+    public boolean isUniqueUsername(@PathVariable String username){
+        List <String> usernames = playerService.getAllPlayers().stream().map(Player::getUsername).toList();
+        return !usernames.contains(username);
+    }
+
     @GetMapping("/{id}")
     Player getPlayerById(@PathVariable String id) {
         return playerService.getPlayerById(id);

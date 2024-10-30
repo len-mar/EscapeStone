@@ -18,12 +18,11 @@ public class AuthService {
     private final PlayerRepo playerRepo;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-// todo: test
+
     public Player signup(RegisterPlayerDTO input) {
         Player player = Player.builder()
                 .id(UUID.randomUUID().toString())
                 .username(input.getUsername())
-                .email(input.getEmail())
                 .password(passwordEncoder.encode(input.getPassword()))
                 .score(0L)
                 .solvedPuzzles(List.of())
@@ -34,12 +33,12 @@ public class AuthService {
     public Player authenticate(LoginPlayerDTO input) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        input.getEmail(),
+                        input.getUsername(),
                         input.getPassword()
                 )
         );
 
-        return playerRepo.findByEmail(input.getEmail())
+        return playerRepo.findByUsername(input.getUsername())
                 .orElseThrow();
     }
 }

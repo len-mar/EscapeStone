@@ -5,7 +5,6 @@ type Props = {
     signUpPage:boolean,
     isSignUpPage:(signUpPage:boolean) => void
 }
-
 export function SignUpPage(props:Props) {
     props.isSignUpPage(true)
     return <>

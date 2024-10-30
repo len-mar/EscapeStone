@@ -17,6 +17,7 @@ public class AuthController {
     private final JwtService jwtService;
     private final AuthService authenticationService;
 
+
     @PostMapping("/signup")
     public ResponseEntity<Player> register(@RequestBody RegisterPlayerDTO registerPlayerDTO) {
         Player registeredPlayer = authenticationService.signup(registerPlayerDTO);
