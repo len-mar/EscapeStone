@@ -6,6 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      JWT_KEY: {{secrets.JWT_KEY}}
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 21
@@ -15,6 +17,4 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      env:
-        JWT_KEY: {{secrets.JWT_KEY}}
       run: mvn -B package --file backend/pom.xml
