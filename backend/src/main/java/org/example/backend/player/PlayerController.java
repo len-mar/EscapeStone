@@ -16,10 +16,10 @@ public class PlayerController {
     private final PlayerService playerService;
 
     // FIXME: anonymousUser handling to no longer throw errors
+    // when there's no cookie context, no user authenticated, it throws a 500
     @GetMapping("/me")
     public ResponseEntity<Player> authenticatedPlayer() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication);
         Player currentPlayer = (Player) authentication.getPrincipal();
         return ResponseEntity.ok(currentPlayer);
     }

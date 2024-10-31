@@ -9,7 +9,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
 import java.util.List;
 
 @SpringBootTest
@@ -21,6 +20,36 @@ class PlayerControllerTest {
 
     @Autowired
     private PlayerRepo testRepo;
+
+    @WithMockUser
+    @Test
+    void getAllPlayers() throws Exception {
+        Player testPlayer = new Player("01", "test_player", "pw", 1234L, List.of());
+        testRepo.save(testPlayer);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/players"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        [
+                        {
+                          "id": "01",
+                          "username": "test_player",
+                          "password": "pw",
+                          "score": 1234,
+                          "solvedPuzzles": []
+                        }
+                        ]
+                        """));
+    }
+
+    @WithMockUser
+    @Test
+    void getAllPlayers_returnsEmptyList() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/players"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        []
+                        """));
+    }
 
     @WithMockUser
     @Test
@@ -66,4 +95,34 @@ class PlayerControllerTest {
                                                 }
                         """));
     }
+
+    @WithMockUser
+    @Test
+    void isUniqueUsername_returnsTrue_ifUnique() throws Exception {
+        Player existingPlayer = new Player("01", "test", "pw", 1234L, List.of());
+        testRepo.save(existingPlayer);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/players/check/unique-username"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("true"));
+    }
+
+    @WithMockUser
+    @Test
+    void isUniqueUsername_returnsFalse_ifNotUnique() throws Exception {
+        Player existingPlayer = new Player("01", "test", "pw", 1234L, List.of());
+        testRepo.save(existingPlayer);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/players/check/test"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("false"));
+    }
+
+
+//    @WithMockUser
+//    @Test
+//    void authenticatedPlayer() throws Exception {
+//        Player existingPlayer = new Player("01", "test", "pw", 1234L, List.of());
+//        testRepo.save(existingPlayer);
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/players/me"))
+//                .andExpect(MockMvcResultMatchers.status().isOk());
+//    }
 }

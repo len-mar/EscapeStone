@@ -12,6 +12,24 @@ class PlayerServiceTest {
     PlayerService playerService = new PlayerService(mockRepo);
 
     @Test
+    void getAllPlayers_returnsCorrectPlayerList() {
+        List<Player> playerList = List.of(new Player("01", "test_player", "pw", 1234L, List.of()));
+        when(mockRepo.findAll())
+                .thenReturn(playerList);
+
+        assertEquals(playerList, playerService.getAllPlayers());
+        verify(mockRepo).findAll();
+    }
+    @Test
+    void getAllPlayers_returnsEmptyList_whenNoPlayersInRepo() {
+        when(mockRepo.findAll())
+                .thenReturn(List.of());
+
+        assertEquals(List.of(), playerService.getAllPlayers());
+        verify(mockRepo).findAll();
+    }
+
+    @Test
     void getPlayerById_returnsPlayer_ifPresent() {
         Player testPlayer = new Player("01", "test_player", "pw", 1234L, List.of());
         when(mockRepo.findById(testPlayer.getId()))
