@@ -101,6 +101,24 @@ class PlayerControllerTest {
 
     @WithMockUser
     @Test
+    void updateSolvedPuzzlesById() throws Exception {
+        Player testPlayer = new Player("01", "test_player", "pw", 1234L, new ArrayList<String>());
+        testRepo.save(testPlayer);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/players/" + testPlayer.getId() + "/solved")
+                        .content("test-puzzle-id"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                                                {
+                                                  "id": "01",
+                                                  "username": "test_player",
+                                                  "password": "pw",
+                                                  "solvedPuzzles": ["test-puzzle-id"]
+                                                }
+                        """));
+    }
+
+    @WithMockUser
+    @Test
     void isUniqueUsername_returnsTrue_ifUnique() throws Exception {
         Player existingPlayer = new Player("01", "test", "pw", 1234L, new ArrayList<String>());
         testRepo.save(existingPlayer);
