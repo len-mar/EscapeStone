@@ -1,6 +1,6 @@
 import {GameBody} from "../GameBody.tsx";
 import {Alert, Button, Stack, TextField, Typography} from "@mui/material";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
@@ -11,7 +11,6 @@ export type Puzzle = {
     solution: string
 }
 
-// TODO: game logic with scores
 // TODO: skip button?
 
 export function GamePage() {
@@ -35,19 +34,21 @@ export function GamePage() {
     };
 
     const handleGuess = async () => {
-        if (guess.toLowerCase() === puzzles[puzzleNumber - 1].solution.toLowerCase()){
-            const id:string = await axios.get('/api/players/me').then(r => r.data.id);
-            const response = await axios.put('/api/players/' + id + "/solved", {
-                solvedPuzzle: puzzles[puzzleNumber - 1].puzzleId
+        if (guess.toLowerCase() === puzzles[puzzleNumber - 1].solution.toLowerCase()) {
+            const id: string = await axios.get('/api/players/me').then(r => r.data.id);
+            const puzzleResponse = await axios.put('/api/players/' + id + "/solved", {
+                field: puzzles[puzzleNumber - 1].puzzleId
             });
-            console.log(response)
+            console.log(puzzleResponse)
+            const scoreResponse = await axios.put('/api/players/' + id + "/score", {field: "1000"});
+            console.log(scoreResponse)
             isSolved("true")
             return
         }
         isSolved("false")
     }
 
-    function handleChange(e): void {
+    function handleChange(e:React.ChangeEvent<HTMLInputElement>): void {
         setGuess(e.target.value)
     }
 
@@ -72,7 +73,7 @@ export function GamePage() {
                 <Alert severity="success">Correct! The answer was "{puzzles[puzzleNumber - 1].solution}". You can
                     continue.</Alert> : solved === "false" &&
                 <Alert severity="error">Incorrect. Please try again.</Alert>}
-            <Button disabled={solved!=="true"} onClick={() => {
+            <Button disabled={solved !== "true"} onClick={() => {
                 setPuzzleNumber(puzzleNumber + 1)
                 isSolved("empty")
                 setGuess("")
