@@ -4,6 +4,9 @@ import {useState} from "react";
 type Props = {
     signUpPage:boolean
 }
+// TODO: user feedback when logging in with incorrect credentials
+// TODO: obscure password
+
     export function InputForm(props:Props){
         const [usernameInput, setUsernameInput] = useState<string>("")
         const [passwordInput, setPasswordInput] = useState<string>("")

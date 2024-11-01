@@ -11,12 +11,14 @@ export type Puzzle = {
     solution: string
 }
 
+// TODO: game logic with scores
 export function GamePage() {
     const [loading, setLoading] = useState(true);
     const [puzzleNumber, setPuzzleNumber] = useState<number>(1)
     const [solved, isSolved] = useState<boolean>(false)
     const navigate = useNavigate();
     const [puzzles, setPuzzles] = useState<Puzzle[]>([])
+    const [guess, setGuess] = useState<string>("")
 
     const getPuzzles = async () => {
         try {
@@ -28,6 +30,18 @@ export function GamePage() {
             setLoading(false)
         }
     };
+
+    function handleGuess(e): void {
+        if (guess.toLowerCase() === puzzles[puzzleNumber - 1].solution.toLowerCase()) {
+            isSolved(true)
+            return
+        }
+        isSolved(false)
+    }
+
+    function handleChange(e): void {
+        setGuess(e.target.value)
+    }
 
     useEffect(() => {
         getPuzzles()
@@ -44,10 +58,10 @@ export function GamePage() {
 
         <GameBody puzzle={puzzles[puzzleNumber - 1]}/>
         <Stack>
-            <TextField placeholder={"Enter your answer here."}></TextField>
-            <Button variant={"contained"} onClick={() => isSolved(true)}>Solve</Button>
-            {solved && <Alert severity="success">Correct! The answer was "{puzzles[puzzleNumber - 1].solution}". You can
-                continue.</Alert>}
+            <TextField onChange={handleChange} value={guess} placeholder={"Enter your answer here."}></TextField>
+            <Button variant={"contained"} onClick={handleGuess}>Solve</Button>
+            {solved ? <Alert severity="success">Correct! The answer was "{puzzles[puzzleNumber - 1].solution}". You can
+                continue.</Alert> : <Alert severity="error">Incorrect. Please try again.</Alert>}
             <Button disabled={!solved} onClick={() => {
                 setPuzzleNumber(puzzleNumber + 1)
                 isSolved(false)
