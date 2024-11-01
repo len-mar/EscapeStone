@@ -19,4 +19,10 @@ public class PuzzleController {
     List<Puzzle> getRandomPuzzles(@PathVariable String playerId) {
         return puzzleService.getRandomPuzzles(playerId);
     }
+
+    // TODO: test
+    @GetMapping("/{puzzleId}")
+    Puzzle getPuzzleById(@PathVariable String puzzleId){
+        return puzzleService.getPuzzleById(puzzleId);
+    }
 }
