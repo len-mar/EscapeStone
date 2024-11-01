@@ -12,7 +12,6 @@ export type Puzzle = {
 }
 
 // TODO: game logic with scores
-// FIXME: next button being disabled correctly
 // TODO: skip button?
 
 export function GamePage() {
@@ -73,7 +72,7 @@ export function GamePage() {
                 <Alert severity="success">Correct! The answer was "{puzzles[puzzleNumber - 1].solution}". You can
                     continue.</Alert> : solved === "false" &&
                 <Alert severity="error">Incorrect. Please try again.</Alert>}
-            <Button disabled={!solved} onClick={() => {
+            <Button disabled={solved!=="true"} onClick={() => {
                 setPuzzleNumber(puzzleNumber + 1)
                 isSolved("empty")
                 setGuess("")
