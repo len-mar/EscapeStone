@@ -15,7 +15,6 @@ const navigate = useNavigate()
             <Toolbar>
                 <Box>
                     <Button color="inherit" href="/home">Home</Button>
-                    <Button color="inherit" href="/scores">Scores</Button>
                     <Button color="inherit" href="/profile">Profile</Button>
                     <Button color="inherit" onClick={handleLogout}>Logout</Button>
                 </Box>
