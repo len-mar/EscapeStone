@@ -9,6 +9,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,7 +28,7 @@ public class AuthService {
                 .username(input.getUsername())
                 .password(passwordEncoder.encode(input.getPassword()))
                 .score(0L)
-                .solvedPuzzles(List.of())
+                .solvedPuzzles(new ArrayList<>())
                 .build();
         return playerRepo.save(player);
     }

@@ -1,9 +1,9 @@
 package org.example.backend.player;
 
 import org.junit.jupiter.api.Test;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+
+import java.util.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -13,17 +13,17 @@ class PlayerServiceTest {
 
     @Test
     void getAllPlayers_returnsCorrectPlayerList() {
-        List<Player> playerList = List.of(new Player("01", "test_player", "pw", 1234L, List.of()));
+        List<Player> playerList = List.of(new Player("01", "test_player", "pw", 1234L, new ArrayList<String>()));
         when(mockRepo.findAll())
                 .thenReturn(playerList);
 
         assertEquals(playerList, playerService.getAllPlayers());
+
         verify(mockRepo).findAll();
     }
     @Test
     void getAllPlayers_returnsEmptyList_whenNoPlayersInRepo() {
-        when(mockRepo.findAll())
-                .thenReturn(List.of());
+        when(mockRepo.findAll()).thenReturn(List.of());
 
         assertEquals(List.of(), playerService.getAllPlayers());
         verify(mockRepo).findAll();
@@ -31,7 +31,7 @@ class PlayerServiceTest {
 
     @Test
     void getPlayerById_returnsPlayer_ifPresent() {
-        Player testPlayer = new Player("01", "test_player", "pw", 1234L, List.of());
+        Player testPlayer = new Player("01", "test_player", "pw", 1234L, new ArrayList<String>());
         when(mockRepo.findById(testPlayer.getId()))
                 .thenReturn(Optional.of(testPlayer));
 
@@ -46,7 +46,7 @@ class PlayerServiceTest {
 
     @Test
     void getScoreById_returnsCorrectScore() {
-        Player testPlayer = new Player("01", "test_user", "pw", 1234L, List.of());
+        Player testPlayer = new Player("01", "test_user", "pw", 1234L, new ArrayList<String>());
         when(mockRepo.findById(testPlayer.getId()))
                 .thenReturn(Optional.of(testPlayer));
         assertEquals(Long.parseLong("1234"), playerService.getScoreById(testPlayer.getId()));
@@ -54,14 +54,32 @@ class PlayerServiceTest {
     }
 
     @Test
-    void updateScoreById_returnsUpdatedScore() {
-        Player testPlayer = new Player("01", "test_user", "pw", 1234L, List.of());
+    void updateScoreById_returnsUpdatedPlayer() {
+        Player testPlayer = new Player("01", "test_user", "pw", 1234L, new ArrayList<String>());
         String updatedScore = "5678";
         when(mockRepo.findById(testPlayer.getId()))
                 .thenReturn(Optional.of(testPlayer));
         testPlayer.setScore(Long.parseLong(updatedScore));
         when(mockRepo.save(testPlayer)).thenReturn(testPlayer);
         assertEquals(testPlayer, playerService.updateScoreById(testPlayer.getId(), updatedScore));
+        verify(mockRepo).findById(testPlayer.getId());
+        verify(mockRepo).save(testPlayer);
+    }
+
+    // TODO: check if it actually does what it's supposed to
+    @Test
+    void updateSolvedPuzzlesById_returnsUpdatedPlayer() {
+        Player testPlayer = new Player("01", "test_user", "pw", 1234L, new ArrayList<String>());
+        String newSolvedPuzzle = "test-puzzle2";
+        ArrayList<String> updatedSolvedPuzzles = new ArrayList<String>();
+        updatedSolvedPuzzles.add("test-puzzle");
+        updatedSolvedPuzzles.add(newSolvedPuzzle);
+        testPlayer.setSolvedPuzzles(updatedSolvedPuzzles);
+
+        when(mockRepo.findById(testPlayer.getId()))
+                .thenReturn(Optional.of(testPlayer));
+        when(mockRepo.save(testPlayer)).thenReturn(testPlayer);
+        assertEquals(testPlayer, playerService.updateSolvedPuzzlesById(testPlayer.getId(), newSolvedPuzzle));
         verify(mockRepo).findById(testPlayer.getId());
         verify(mockRepo).save(testPlayer);
     }

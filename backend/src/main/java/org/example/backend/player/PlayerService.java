@@ -3,6 +3,7 @@ package org.example.backend.player;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,4 +30,11 @@ public class PlayerService {
         return playerRepo.save(player);
     }
 
+    public Player updateSolvedPuzzlesById(String id, String newSolvedPuzzle) {
+        Player player = playerRepo.findById(id).orElseThrow();
+        ArrayList<String> solvedPuzzles = player.getSolvedPuzzles();
+        solvedPuzzles.add(newSolvedPuzzle);
+        player.setSolvedPuzzles(solvedPuzzles);
+        return playerRepo.save(player);
+    }
 }

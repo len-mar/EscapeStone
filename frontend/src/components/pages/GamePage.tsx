@@ -12,17 +12,21 @@ export type Puzzle = {
 }
 
 // TODO: game logic with scores
+// FIXME: next button being disabled correctly
+// TODO: skip button?
+
 export function GamePage() {
     const [loading, setLoading] = useState(true);
     const [puzzleNumber, setPuzzleNumber] = useState<number>(1)
-    const [solved, isSolved] = useState<boolean>(false)
+    const [solved, isSolved] = useState<string>("empty")
     const navigate = useNavigate();
     const [puzzles, setPuzzles] = useState<Puzzle[]>([])
     const [guess, setGuess] = useState<string>("")
 
     const getPuzzles = async () => {
         try {
-            const response = await axios.get('/api/puzzles');
+            const id: string = await axios.get('/api/players/me').then(r => r.data.id);
+            const response = await axios.get('/api/puzzles/' + id);
             setPuzzles(response.data);
         } catch (error) {
             console.error('Error fetching puzzles:', error);
@@ -31,12 +35,17 @@ export function GamePage() {
         }
     };
 
-    function handleGuess(e): void {
-        if (guess.toLowerCase() === puzzles[puzzleNumber - 1].solution.toLowerCase()) {
-            isSolved(true)
+    const handleGuess = async () => {
+        if (guess.toLowerCase() === puzzles[puzzleNumber - 1].solution.toLowerCase()){
+            const id:string = await axios.get('/api/players/me').then(r => r.data.id);
+            const response = await axios.put('/api/players/' + id + "/solved", {
+                solvedPuzzle: puzzles[puzzleNumber - 1].puzzleId
+            });
+            console.log(response)
+            isSolved("true")
             return
         }
-        isSolved(false)
+        isSolved("false")
     }
 
     function handleChange(e): void {
@@ -60,11 +69,14 @@ export function GamePage() {
         <Stack>
             <TextField onChange={handleChange} value={guess} placeholder={"Enter your answer here."}></TextField>
             <Button variant={"contained"} onClick={handleGuess}>Solve</Button>
-            {solved ? <Alert severity="success">Correct! The answer was "{puzzles[puzzleNumber - 1].solution}". You can
-                continue.</Alert> : <Alert severity="error">Incorrect. Please try again.</Alert>}
+            {solved === "true" ?
+                <Alert severity="success">Correct! The answer was "{puzzles[puzzleNumber - 1].solution}". You can
+                    continue.</Alert> : solved === "false" &&
+                <Alert severity="error">Incorrect. Please try again.</Alert>}
             <Button disabled={!solved} onClick={() => {
                 setPuzzleNumber(puzzleNumber + 1)
-                isSolved(false)
+                isSolved("empty")
+                setGuess("")
                 if (puzzleNumber === 3) {
                     navigate('/home', {state: {roomDone: true}})
                 }

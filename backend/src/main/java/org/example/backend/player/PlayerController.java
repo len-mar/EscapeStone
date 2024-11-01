@@ -51,5 +51,10 @@ public class PlayerController {
         return playerService.updateScoreById(id, score);
     }
 
+    // TODO: tests
+    @PutMapping("/{id}/solved")
+    Player updateSolvedPuzzlesById(@PathVariable String id, @RequestBody String solvedPuzzle) {
+        return playerService.updateSolvedPuzzlesById(id, solvedPuzzle);
+    }
 
 }
