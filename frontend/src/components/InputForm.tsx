@@ -1,24 +1,71 @@
-import {Button, TextField} from "@mui/material";
+import {Alert, Button, TextField} from "@mui/material";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 type Props = {
-    signUpPage:boolean
+    signUpPage: boolean
 }
-    export function InputForm(props:Props){
-        const [usernameInput, setUsernameInput] = useState<string>("")
-        const [passwordInput, setPasswordInput] = useState<string>("")
 
-        /*
-        function handleSubmit():void {
-            axios.post("api/login?username=" + usernameInput + "&password=" + passwordInput).catch(error => console.error(error));
+export function InputForm(props: Props) {
+    const [usernameInput, setUsernameInput] = useState<string>("")
+    const [passwordInput, setPasswordInput] = useState<string>("")
+    const [uniqueUsername, setUniqueUsername] = useState<string>("new")
+    const navigate = useNavigate()
+
+    const handleSignup = async () => {
+        try {
+            const checkResponse = await fetch(`/api/players/check/` + usernameInput);
+            const isUnique = await checkResponse.json();
+            if (!isUnique) {
+                console.log('Username not unique')
+                setUniqueUsername("false")
+                return;
+            }
+
+            setUniqueUsername("true")
+            const signupResponse = await fetch('/auth/signup', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({username: usernameInput, password: passwordInput}),
+            });
+
+            const signupData = await signupResponse.json()
+            navigate("/login")
+            console.log('User signed up successfully:', signupData)
+        } catch (error) {
+            console.error('Error during signup process:', error)
         }
-        */
 
-        return(
+    };
+
+    const handleLogin = async () => {
+        try {
+            const loginResponse = await fetch('/auth/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({username: usernameInput, password: passwordInput}),
+            });
+
+            const loginData = await loginResponse.json();
+            console.log('User logged in successfully:', loginData);
+            navigate("/home")
+        } catch (error) {
+            console.error('Error during login process:', error);
+        }
+    }
+
+
+    return (
         <>
-                <TextField id="username" label="Username" variant="outlined" value={usernameInput} onChange={(e)=> setUsernameInput(e.target.value)}/>
-                <TextField id="password" label="Password" variant="outlined" value={passwordInput} onChange={(e)=> setPasswordInput(e.target.value)}/>
-                {props.signUpPage ? <Button variant={"contained"}>Sign Up</Button> : <Button variant={"contained"}>Login</Button>}
+            {(uniqueUsername === "false" && props.signUpPage) && <Alert severity="error">Username already taken. Please choose another.</Alert>}
+            <TextField id="username" label="Username" variant="outlined" value={usernameInput}
+                       onChange={(e) => setUsernameInput(e.target.value)}/>
+
+            <TextField id="password" label="Password" variant="outlined" value={passwordInput}
+                       onChange={(e) => setPasswordInput(e.target.value)}/>
+
+            {props.signUpPage ? <Button variant={"contained"} onClick={handleSignup}>Sign Up</Button> :
+                <Button variant={"contained"} onClick={handleLogin}>Login</Button>}
         </>
     )
 }
