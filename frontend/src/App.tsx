@@ -6,7 +6,6 @@ import {GamePage} from "./components/pages/GamePage.tsx";
 import {ImprintPage} from "./components/pages/ImprintPage.tsx";
 import {ContactPage} from "./components/pages/ContactPage.tsx";
 import {ProfilePage} from "./components/pages/ProfilePage.tsx";
-import {ScorePage} from "./components/pages/ScorePage.tsx";
 import ProtectedRoutes from "./components/ProtectedRoutes.tsx";
 import {LoginPage} from "./components/pages/LoginPage.tsx";
 import {useState} from "react";
