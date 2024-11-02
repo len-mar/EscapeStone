@@ -23,8 +23,8 @@ export function GamePage() {
 
     const getPuzzles = async () => {
         try {
-            const id: string = await axios.get('/api/players/me').then(r => r.data.id);
-            const response = await axios.get('/api/puzzles/' + id);
+            const playerId: string = await axios.get('/api/players/me').then(r => r.data.id);
+            const response = await axios.get('/api/puzzles/random/' + playerId);
             setPuzzles(response.data);
         } catch (error) {
             console.error('Error fetching puzzles:', error);
@@ -73,14 +73,14 @@ export function GamePage() {
                 <Alert severity="success">Correct! The answer was "{puzzles[puzzleNumber - 1].solution}". You can
                     continue.</Alert> : solved === "false" &&
                 <Alert severity="error">Incorrect. Please try again.</Alert>}
-            <Button disabled={solved !== "true"} onClick={() => {
+            <Button onClick={() => {
                 setPuzzleNumber(puzzleNumber + 1)
                 isSolved("empty")
                 setGuess("")
                 if (puzzleNumber === 3) {
                     navigate('/home', {state: {roomDone: true}})
                 }
-            }}>Next</Button>
+            }}>{solved === "true" ? "Next" : "Skip"}</Button>
         </Stack>
     </>
 }

@@ -7,7 +7,7 @@ export function HomePage() {
     const { roomDone } = location.state || {};
 
     return <>
-    {roomDone && <Alert severity="success">Great job! You've solved the room.</Alert>}
+    {roomDone && <Alert severity="success">Room done!</Alert>}
         <Typography variant={"h4"}>Let's go!</Typography>
             <Button size={"large"} variant={"contained"} href="/game">New Game</Button>
     </>
