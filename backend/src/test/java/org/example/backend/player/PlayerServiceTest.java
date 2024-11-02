@@ -66,15 +66,16 @@ class PlayerServiceTest {
         verify(mockRepo).save(testPlayer);
     }
 
-    // TODO: check if it actually does what it's supposed to
     @Test
     void updateSolvedPuzzlesById_returnsUpdatedPlayer() {
-        Player testPlayer = new Player("01", "test_user", "pw", 1234L, new ArrayList<>());
+        // creates test player with one solved puzzle
+        ArrayList<String> solvedPuzzles = new ArrayList<>(Arrays.asList("test-puzzle"));
+        Player testPlayer = new Player("01", "test_user", "pw", 1234L, solvedPuzzles);
+        // creates newly solved puzzle and adds it to the list
         StringRequestBody newSolvedPuzzle = new StringRequestBody("test-puzzle2");
-        ArrayList<String> updatedSolvedPuzzles = new ArrayList<>();
-        updatedSolvedPuzzles.add("test-puzzle");
-        updatedSolvedPuzzles.add(newSolvedPuzzle.getField());
-        testPlayer.setSolvedPuzzles(updatedSolvedPuzzles);
+        solvedPuzzles.add(newSolvedPuzzle.getField());
+        // updates the player's solved puzzles
+        testPlayer.setSolvedPuzzles(solvedPuzzles);
 
         when(mockRepo.findById(testPlayer.getId()))
                 .thenReturn(Optional.of(testPlayer));

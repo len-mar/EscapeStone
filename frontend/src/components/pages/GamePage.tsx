@@ -11,8 +11,6 @@ export type Puzzle = {
     solution: string
 }
 
-// TODO: skip button?
-
 export function GamePage() {
     const [loading, setLoading] = useState(true);
     const [puzzleNumber, setPuzzleNumber] = useState<number>(1)

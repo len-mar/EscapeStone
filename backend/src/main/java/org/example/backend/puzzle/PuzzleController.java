@@ -14,7 +14,6 @@ import java.util.List;
 public class PuzzleController {
 
     private final PuzzleService puzzleService;
-    // TODO: test
 
     @GetMapping("/random/{playerId}")
     List<Puzzle> getRandomPuzzles(@PathVariable String playerId) {

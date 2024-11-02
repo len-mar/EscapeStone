@@ -10,8 +10,6 @@ export function ProfilePage() {
     const [solvedPuzzleTitles, setSolvedPuzzleTitles] = useState<string[]>([])
 
 
-
-    // todo: get puzzles by id
     const loadProfile = async () => {
         try {
             // const id: string = await axios.get('/api/players/me').then(r => r.data.id);
