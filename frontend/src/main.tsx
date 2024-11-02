@@ -27,6 +27,12 @@ const theme = createTheme({
                 root: {
                     margin: "10px"}
             }
+        },
+        MuiTableCell: {
+            styleOverrides:{
+                root: {
+                    fontSize: "20px"}
+            }
         }
     },
     typography: { fontFamily: "cinzel decorative"},

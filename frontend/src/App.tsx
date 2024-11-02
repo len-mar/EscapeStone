@@ -11,6 +11,7 @@ import {useState} from "react";
 import {Box, Container} from "@mui/material";
 import {Header} from "./components/Header.tsx";
 import {Footer} from "./components/Footer.tsx";
+import {ScorePage} from "./components/pages/ScorePage.tsx";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
                                element={<SignUpPage signUpPage={signUpPage} isSignUpPage={isSignUpPage}/>}/>
                         <Route element={<ProtectedRoutes/>}>
                             <Route path={"/home"} element={<HomePage/>}/>
+                            <Route path={"/scores"} element={<ScorePage/>}/>
                             <Route path={"/game"} element={<GamePage/>}/>
                             <Route path={"/profile"} element={<ProfilePage/>}/>
                         </Route>
