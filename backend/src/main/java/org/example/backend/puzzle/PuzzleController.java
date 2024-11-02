@@ -14,15 +14,16 @@ import java.util.List;
 public class PuzzleController {
 
     private final PuzzleService puzzleService;
+    // TODO: test
 
-    @GetMapping("/{playerId}")
+    @GetMapping("/random/{playerId}")
     List<Puzzle> getRandomPuzzles(@PathVariable String playerId) {
         return puzzleService.getRandomPuzzles(playerId);
     }
 
-    // TODO: test
     @GetMapping("/{puzzleId}")
     Puzzle getPuzzleById(@PathVariable String puzzleId){
         return puzzleService.getPuzzleById(puzzleId);
     }
+
 }
