@@ -5,6 +5,10 @@ on:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
+
+env:
+  JWT_KEY: ${{ secrets.JWT_KEY }}
+
 jobs:
   build:
     name: Build and analyze

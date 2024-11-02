@@ -3,11 +3,13 @@ name: Java CI with Maven
 on:
   push:
 
+env:
+  JWT_KEY: ${{ secrets.JWT_KEY }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      JWT_KEY: ${{ secrets.JWT_KEY }}
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 21
