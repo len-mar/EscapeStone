@@ -56,10 +56,10 @@ class PlayerServiceTest {
     @Test
     void updateScoreById_returnsUpdatedPlayer() {
         Player testPlayer = new Player("01", "test_user", "pw", 1234L, new ArrayList<String>());
-        String updatedScore = "5678";
+        StringRequestBody updatedScore = new StringRequestBody("5678");
         when(mockRepo.findById(testPlayer.getId()))
                 .thenReturn(Optional.of(testPlayer));
-        testPlayer.setScore(Long.parseLong(updatedScore));
+        testPlayer.setScore(Long.parseLong(updatedScore.getField()));
         when(mockRepo.save(testPlayer)).thenReturn(testPlayer);
         assertEquals(testPlayer, playerService.updateScoreById(testPlayer.getId(), updatedScore));
         verify(mockRepo).findById(testPlayer.getId());
@@ -70,10 +70,10 @@ class PlayerServiceTest {
     @Test
     void updateSolvedPuzzlesById_returnsUpdatedPlayer() {
         Player testPlayer = new Player("01", "test_user", "pw", 1234L, new ArrayList<String>());
-        String newSolvedPuzzle = "test-puzzle2";
+        StringRequestBody newSolvedPuzzle = new StringRequestBody("test-puzzle2");
         ArrayList<String> updatedSolvedPuzzles = new ArrayList<String>();
         updatedSolvedPuzzles.add("test-puzzle");
-        updatedSolvedPuzzles.add(newSolvedPuzzle);
+        updatedSolvedPuzzles.add(newSolvedPuzzle.getField());
         testPlayer.setSolvedPuzzles(updatedSolvedPuzzles);
 
         when(mockRepo.findById(testPlayer.getId()))
