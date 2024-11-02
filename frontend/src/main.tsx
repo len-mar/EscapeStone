@@ -7,7 +7,29 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {CssBaseline} from "@mui/material";
 
 const theme = createTheme({
-    typography: { fontFamily: "cormorant unicase"},
+    components:{
+        MuiButton: {
+            styleOverrides:{
+                root: {
+                    fontSize: "20px"
+                }
+            }
+        },
+        MuiAlert: {
+            styleOverrides:{
+                root: {
+                    fontSize: "15px"
+                }
+            }
+        },
+        MuiTypography: {
+            styleOverrides:{
+                root: {
+                    margin: "10px"}
+            }
+        }
+    },
+    typography: { fontFamily: "cinzel decorative"},
     palette: {
         mode: "light",
         primary: {
@@ -17,7 +39,7 @@ const theme = createTheme({
             main: '#dc004e',
         },
         background: {
-            default: '#B7B597'
+            default: '#739072'
         }
     },
 });

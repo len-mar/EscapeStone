@@ -8,7 +8,7 @@ export function HomePage() {
 
     return <>
     {roomDone && <Alert severity="success">Room done!</Alert>}
-        <Typography variant={"h4"}>Let's go!</Typography>
-            <Button size={"large"} variant={"contained"} href="/game">New Game</Button>
+        <Typography variant={"h2"}>Let's go!</Typography>
+        <Button size={"large"} variant={"contained"} href="/game">New Game</Button>
     </>
 }

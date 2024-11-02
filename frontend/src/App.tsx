@@ -1,4 +1,3 @@
-import './App.css'
 import {Route, Routes} from "react-router-dom";
 import {SignUpPage} from "./components/pages/SignUpPage.tsx";
 import {HomePage} from "./components/pages/HomePage.tsx";
@@ -20,7 +19,7 @@ function App() {
     return (
         <>
             <Header/>
-            <Container fixed sx={{height: '500px', width: '600px', overflow: 'hidden', backgroundColor: "#B2C8BA", borderRadius: "10%", margin: "50px"}}>
+            <Container fixed sx={{height: '500px', width: '600px', overflow: 'hidden', backgroundColor: "#B2C8BA", borderRadius: "5%", margin: "50px", backgroundImage:"url('src/pattern.jpg')"}}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', overflowY: 'scroll', height: '100%'}}>
                     <Routes>
                         <Route path={"/"} element={<HomePage/>}/>

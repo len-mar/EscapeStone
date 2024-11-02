@@ -1,5 +1,4 @@
-import {GameBody} from "../GameBody.tsx";
-import {Alert, Button, Stack, TextField, Typography} from "@mui/material";
+import {Alert, Button, TextField, Typography} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
@@ -45,7 +44,7 @@ export function GamePage() {
         isSolved("false")
     }
 
-    function handleChange(e:React.ChangeEvent<HTMLInputElement>): void {
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
         setGuess(e.target.value)
     }
 
@@ -58,12 +57,10 @@ export function GamePage() {
     }
 
     return <>
-        {puzzleNumber === 1 && <Typography variant={"h4"}>Welcome to the room.</Typography>}
+        {puzzleNumber === 1 &&
+            <Typography variant={"h5"}>Welcome to the room. This is puzzle #{puzzleNumber}.</Typography>}
 
-        <Typography variant={"h2"}>This is puzzle #{puzzleNumber}.</Typography>
-
-        <GameBody puzzle={puzzles[puzzleNumber - 1]}/>
-        <Stack>
+        <Typography variant={"h3"}> {puzzles[puzzleNumber - 1].body}</Typography>
             <TextField onChange={handleChange} value={guess} placeholder={"Enter your answer here."}></TextField>
             <Button variant={"contained"} onClick={handleGuess}>Solve</Button>
             {solved === "true" ?
@@ -78,6 +75,5 @@ export function GamePage() {
                     navigate('/home', {state: {roomDone: true}})
                 }
             }}>{solved === "true" ? "Next" : "Skip"}</Button>
-        </Stack>
     </>
 }

@@ -14,7 +14,7 @@ const navigate = useNavigate()
         <AppBar position="static" sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
             <Toolbar>
                 <Box>
-                    <Button color="inherit" href="/home">Home</Button>
+                    <Button color="inherit" href="/home">Game</Button>
                     <Button color="inherit" href="/profile">Profile</Button>
                     <Button color="inherit" onClick={handleLogout}>Logout</Button>
                 </Box>

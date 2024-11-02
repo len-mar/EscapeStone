@@ -1,4 +1,4 @@
-import {Avatar, Typography} from "@mui/material";
+import {Accordion, AccordionDetails, AccordionSummary, Avatar, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
 import {Puzzle} from "./GamePage.tsx";
 
@@ -39,14 +39,21 @@ export function ProfilePage() {
 
     return <>
         <Typography variant={"h2"}>Profile</Typography>
-        <Avatar alt="your profile pic" src="/src/avatar.jpg" sx={{width: 50, height: 50}}/>
+        <Avatar alt="your profile pic" src="/src/avatar.png" sx={{width: 100, height: 100}}/>
 
         <Typography align={"left"} variant={"h4"}>Username: {username}</Typography>
         <Typography align={"left"} variant={"h4"}>Score: {score}</Typography>
         <Typography align={"left"} variant={"h4"}>Solved Puzzles: </Typography>
-        {solvedPuzzles.length > 0 ? solvedPuzzles.map(p =>
-                <Typography
-                    align={"left"} key={p.puzzleId} variant={"subtitle2"}>{p.puzzleId}: {p.body} Solution: {p.solution}</Typography>) :
-            <Typography variant={"body2"}>No puzzles solved yet.</Typography>}
+        <Accordion>
+            <AccordionSummary>Click to expand list.</AccordionSummary>
+            <AccordionDetails>
+                {solvedPuzzles.length > 0 ? solvedPuzzles.map(p =>
+                        <Typography
+                            align={"left"} key={p.puzzleId} variant={"body1"}>{p.solution}:{p.body}</Typography>) :
+                    <Typography variant={"body2"}>No puzzles solved yet.</Typography>}
+            </AccordionDetails>
+
+        </Accordion>
+
     </>
 }
