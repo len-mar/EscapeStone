@@ -6,7 +6,6 @@ import axios from "axios";
 
 export type Puzzle = {
     puzzleId: string,
-    title: string,
     body: string,
     solution: string
 }

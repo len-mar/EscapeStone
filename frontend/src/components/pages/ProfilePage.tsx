@@ -2,6 +2,7 @@ import {Avatar, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
 import {Puzzle} from "./GamePage.tsx";
 
+// TODO: format more nicely
 export function ProfilePage() {
     const [username, setUsername] = useState<string>("")
     const [score, setScore] = useState<number>()
@@ -44,7 +45,7 @@ export function ProfilePage() {
         <Typography variant={"h4"}>Score: {score}</Typography>
         <Typography variant={"h4"}>Solved Puzzles: {solvedPuzzles.length > 0 ? solvedPuzzles.map(p =>
                 <Typography
-                    key={p.puzzleId} variant={"subtitle2"}>{p.title}: {p.body} = {p.solution}</Typography>) :
+                    key={p.puzzleId} variant={"subtitle2"}>{p.puzzleId}: {p.body} Solution: {p.solution}</Typography>) :
             <Typography variant={"body2"}>No puzzles solved yet.</Typography>}</Typography>
 
     </>

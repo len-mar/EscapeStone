@@ -23,7 +23,7 @@ class PuzzleServiceTest {
     @Test
     void getRandomPuzzles() {
         // create expected puzzle object and test player
-        Puzzle expectedPuzzle = new Puzzle("01", "test", "i am a test puzzle", "tset");
+        Puzzle expectedPuzzle = new Puzzle("01", "i am a test puzzle", "tset");
         Player testPlayer = new Player("01", "test username", "test password", 0L, new ArrayList<>());
         // tell mockito that the puzzle repo has three entries
         Mockito.when(mockPuzzleRepo.count()).thenReturn(3L);
