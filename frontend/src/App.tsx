@@ -23,7 +23,7 @@ function App() {
             <Container fixed sx={{height: '500px', width: '600px', overflow: 'hidden'}}>
                 <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', overflowY: 'scroll', height: '100%'}}>
                     <Routes>
-                        <Route path={"/"} element={<LoginPage signUpPage={signUpPage} isSignUpPage={isSignUpPage}/>}/>
+                        <Route path={"/"} element={<HomePage/>}/>
                         <Route path={"/login"}
                                element={<LoginPage signUpPage={signUpPage} isSignUpPage={isSignUpPage}/>}/>
                         <Route path={"/signup"}
