@@ -5,10 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 import java.util.ArrayList;
 
 @SpringBootTest
@@ -84,14 +86,17 @@ class PlayerControllerTest {
         Player testPlayer = new Player("01", "test_player", "pw", 1234L, new ArrayList<>());
         testRepo.save(testPlayer);
         mockMvc.perform(MockMvcRequestBuilders.put("/api/players/" + testPlayer.getId() + "/score")
-                        .content("5678"))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                "1111"
+                                """))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                                                 {
                                                   "id": "01",
                                                   "username": "test_player",
                                                   "password": "pw",
-                                                  "score": 5678
+                                                  "score": 2345
                                                 }
                         """));
     }
@@ -102,7 +107,10 @@ class PlayerControllerTest {
         Player testPlayer = new Player("01", "test_player", "pw", 1234L, new ArrayList<>());
         testRepo.save(testPlayer);
         mockMvc.perform(MockMvcRequestBuilders.put("/api/players/" + testPlayer.getId() + "/solved")
-                        .content("test-puzzle-id"))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                "test-puzzle-id"
+                                """))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                                                 {

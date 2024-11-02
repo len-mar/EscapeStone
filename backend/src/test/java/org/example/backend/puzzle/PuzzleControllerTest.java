@@ -3,7 +3,6 @@ package org.example.backend.puzzle;
 import lombok.RequiredArgsConstructor;
 import org.example.backend.player.Player;
 import org.example.backend.player.PlayerRepo;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
