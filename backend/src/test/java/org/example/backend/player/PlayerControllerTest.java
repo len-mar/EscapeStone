@@ -24,7 +24,7 @@ class PlayerControllerTest {
     @WithMockUser
     @Test
     void getAllPlayers() throws Exception {
-        Player testPlayer = new Player("01", "test_player", "pw", 1234L, new ArrayList<String>());
+        Player testPlayer = new Player("01", "test_player", "pw", 1234L, new ArrayList<>());
         testRepo.save(testPlayer);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/players"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -54,7 +54,7 @@ class PlayerControllerTest {
     @WithMockUser
     @Test
     void getPlayerById() throws Exception {
-        Player testPlayer = new Player("01", "test_player", "pw", 1234L, new ArrayList<String>());
+        Player testPlayer = new Player("01", "test_player", "pw", 1234L, new ArrayList<>());
         testRepo.save(testPlayer);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/players/" + testPlayer.getId()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -71,7 +71,7 @@ class PlayerControllerTest {
     @WithMockUser
     @Test
     void getScoreById() throws Exception {
-        Player testPlayer = new Player("01", "test_player", "pw", 1234L, new ArrayList<String>());
+        Player testPlayer = new Player("01", "test_player", "pw", 1234L, new ArrayList<>());
         testRepo.save(testPlayer);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/players/" + testPlayer.getId() + "/score"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -81,7 +81,7 @@ class PlayerControllerTest {
     @WithMockUser
     @Test
     void updateScoreById() throws Exception {
-        Player testPlayer = new Player("01", "test_player", "pw", 1234L, new ArrayList<String>());
+        Player testPlayer = new Player("01", "test_player", "pw", 1234L, new ArrayList<>());
         testRepo.save(testPlayer);
         mockMvc.perform(MockMvcRequestBuilders.put("/api/players/" + testPlayer.getId() + "/score")
                         .content("5678"))
@@ -99,7 +99,7 @@ class PlayerControllerTest {
     @WithMockUser
     @Test
     void updateSolvedPuzzlesById() throws Exception {
-        Player testPlayer = new Player("01", "test_player", "pw", 1234L, new ArrayList<String>());
+        Player testPlayer = new Player("01", "test_player", "pw", 1234L, new ArrayList<>());
         testRepo.save(testPlayer);
         mockMvc.perform(MockMvcRequestBuilders.put("/api/players/" + testPlayer.getId() + "/solved")
                         .content("test-puzzle-id"))
@@ -117,7 +117,7 @@ class PlayerControllerTest {
     @WithMockUser
     @Test
     void isUniqueUsername_returnsTrue_ifUnique() throws Exception {
-        Player existingPlayer = new Player("01", "test", "pw", 1234L, new ArrayList<String>());
+        Player existingPlayer = new Player("01", "test", "pw", 1234L, new ArrayList<>());
         testRepo.save(existingPlayer);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/players/check/unique-username"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -127,7 +127,7 @@ class PlayerControllerTest {
     @WithMockUser
     @Test
     void isUniqueUsername_returnsFalse_ifNotUnique() throws Exception {
-        Player existingPlayer = new Player("01", "test", "pw", 1234L, new ArrayList<String>());
+        Player existingPlayer = new Player("01", "test", "pw", 1234L, new ArrayList<>());
         testRepo.save(existingPlayer);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/players/check/test"))
                 .andExpect(MockMvcResultMatchers.status().isOk())

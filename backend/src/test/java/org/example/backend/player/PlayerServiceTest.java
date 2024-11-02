@@ -13,7 +13,7 @@ class PlayerServiceTest {
 
     @Test
     void getAllPlayers_returnsCorrectPlayerList() {
-        List<Player> playerList = List.of(new Player("01", "test_player", "pw", 1234L, new ArrayList<String>()));
+        List<Player> playerList = List.of(new Player("01", "test_player", "pw", 1234L, new ArrayList<>()));
         when(mockRepo.findAll())
                 .thenReturn(playerList);
 
@@ -31,7 +31,7 @@ class PlayerServiceTest {
 
     @Test
     void getPlayerById_returnsPlayer_ifPresent() {
-        Player testPlayer = new Player("01", "test_player", "pw", 1234L, new ArrayList<String>());
+        Player testPlayer = new Player("01", "test_player", "pw", 1234L, new ArrayList<>());
         when(mockRepo.findById(testPlayer.getId()))
                 .thenReturn(Optional.of(testPlayer));
 
@@ -46,7 +46,7 @@ class PlayerServiceTest {
 
     @Test
     void getScoreById_returnsCorrectScore() {
-        Player testPlayer = new Player("01", "test_user", "pw", 1234L, new ArrayList<String>());
+        Player testPlayer = new Player("01", "test_user", "pw", 1234L, new ArrayList<>());
         when(mockRepo.findById(testPlayer.getId()))
                 .thenReturn(Optional.of(testPlayer));
         assertEquals(Long.parseLong("1234"), playerService.getScoreById(testPlayer.getId()));
@@ -55,7 +55,7 @@ class PlayerServiceTest {
 
     @Test
     void updateScoreById_returnsUpdatedPlayer() {
-        Player testPlayer = new Player("01", "test_user", "pw", 1234L, new ArrayList<String>());
+        Player testPlayer = new Player("01", "test_user", "pw", 1234L, new ArrayList<>());
         StringRequestBody updatedScore = new StringRequestBody("5678");
         when(mockRepo.findById(testPlayer.getId()))
                 .thenReturn(Optional.of(testPlayer));
@@ -69,9 +69,9 @@ class PlayerServiceTest {
     // TODO: check if it actually does what it's supposed to
     @Test
     void updateSolvedPuzzlesById_returnsUpdatedPlayer() {
-        Player testPlayer = new Player("01", "test_user", "pw", 1234L, new ArrayList<String>());
+        Player testPlayer = new Player("01", "test_user", "pw", 1234L, new ArrayList<>());
         StringRequestBody newSolvedPuzzle = new StringRequestBody("test-puzzle2");
-        ArrayList<String> updatedSolvedPuzzles = new ArrayList<String>();
+        ArrayList<String> updatedSolvedPuzzles = new ArrayList<>();
         updatedSolvedPuzzles.add("test-puzzle");
         updatedSolvedPuzzles.add(newSolvedPuzzle.getField());
         testPlayer.setSolvedPuzzles(updatedSolvedPuzzles);
