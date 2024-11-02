@@ -6,7 +6,6 @@ type Props = {
     signUpPage:boolean
 }
 // TODO: user feedback when logging in with incorrect credentials
-// TODO: obscure password
 
 export function InputForm(props: Props) {
     const [usernameInput, setUsernameInput] = useState<string>("")
@@ -63,7 +62,7 @@ export function InputForm(props: Props) {
             <TextField id="username" label="Username" variant="outlined" value={usernameInput}
                        onChange={(e) => setUsernameInput(e.target.value)}/>
 
-            <TextField id="password" label="Password" variant="outlined" value={passwordInput}
+            <TextField id="password" label="Password" variant="outlined" type={"password"} value={passwordInput}
                        onChange={(e) => setPasswordInput(e.target.value)}/>
 
             {props.signUpPage ? <Button variant={"contained"} onClick={handleSignup}>Sign Up</Button> :

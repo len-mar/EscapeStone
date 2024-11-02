@@ -41,12 +41,12 @@ export function ProfilePage() {
         <Typography variant={"h2"}>Profile</Typography>
         <Avatar alt="your profile pic" src="/src/avatar.jpg" sx={{width: 50, height: 50}}/>
 
-        <Typography variant={"h4"}>Username: {username}</Typography>
-        <Typography variant={"h4"}>Score: {score}</Typography>
-        <Typography variant={"h4"}>Solved Puzzles: {solvedPuzzles.length > 0 ? solvedPuzzles.map(p =>
+        <Typography align={"left"} variant={"h4"}>Username: {username}</Typography>
+        <Typography align={"left"} variant={"h4"}>Score: {score}</Typography>
+        <Typography align={"left"} variant={"h4"}>Solved Puzzles: </Typography>
+        {solvedPuzzles.length > 0 ? solvedPuzzles.map(p =>
                 <Typography
-                    key={p.puzzleId} variant={"subtitle2"}>{p.puzzleId}: {p.body} Solution: {p.solution}</Typography>) :
-            <Typography variant={"body2"}>No puzzles solved yet.</Typography>}</Typography>
-
+                    align={"left"} key={p.puzzleId} variant={"subtitle2"}>{p.puzzleId}: {p.body} Solution: {p.solution}</Typography>) :
+            <Typography variant={"body2"}>No puzzles solved yet.</Typography>}
     </>
 }

@@ -7,7 +7,7 @@ const navigate = useNavigate()
 
     function handleLogout() {
         axios.post("/auth/logout").catch(error => console.error(error))
-        navigate("/")
+        navigate("/login")
     }
 
     return (
