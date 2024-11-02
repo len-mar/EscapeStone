@@ -20,8 +20,8 @@ function App() {
     return (
         <>
             <Header/>
-            <Container fixed sx={{height: '500px', width: '600px', overflow: 'hidden'}}>
-                <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', overflowY: 'scroll', height: '100%'}}>
+            <Container fixed sx={{height: '500px', width: '600px', overflow: 'hidden', backgroundColor: "#B2C8BA", borderRadius: "10%", margin: "50px"}}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', overflowY: 'scroll', height: '100%'}}>
                     <Routes>
                         <Route path={"/"} element={<HomePage/>}/>
                         <Route path={"/login"}
@@ -40,6 +40,7 @@ function App() {
             </Container>
             <Footer/>
         </>
+
     )
 }
 
