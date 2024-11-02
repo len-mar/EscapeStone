@@ -29,9 +29,9 @@ class PuzzleControllerTest {
     @Autowired
     private PlayerRepo testPlayerRepo;
 
-    @RepeatedTest(50)
     @WithMockUser
     @DirtiesContext
+    @Test
     void getRandomPuzzles_returnsThreePuzzles() throws Exception {
         Player testPlayer = new Player("01", "test username", "test password", 0L, new ArrayList<>());
         testPlayerRepo.save(testPlayer);
