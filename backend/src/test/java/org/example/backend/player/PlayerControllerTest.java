@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -142,5 +143,21 @@ class PlayerControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("false"));
     }
 
-
+    @WithMockUser
+    @Test
+    void deleteProgress() throws Exception {
+        Player existingPlayer = new Player("01", "test", "pw", 1234L, new ArrayList<>(Arrays.asList("test-puzzle", "test-puzzle2")));
+        testRepo.save(existingPlayer);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/players/" + existingPlayer.getId()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                                                                        {
+                                                                          "id": "01",
+                                                                          "username": "test",
+                                                                          "password": "pw",
+                                                                          "score": 0,
+                                                                          "solvedPuzzles": []
+                                                                        }
+                        """));
+    }
 }

@@ -84,4 +84,14 @@ class PlayerServiceTest {
         verify(mockRepo).findById(testPlayer.getId());
         verify(mockRepo).save(testPlayer);
     }
+
+    @Test
+    void deleteProgress_deletesProgress() {
+        Player testPlayer = new Player("01", "test_user", "pw", 1234L, new ArrayList<>(Arrays.asList("test-puzzle")));
+        Player emptyPlayer = new Player("01", "test_user", "pw", 0L, new ArrayList<>());
+        when(mockRepo.findById(testPlayer.getId()))
+                .thenReturn(Optional.of(testPlayer));
+        when(mockRepo.save(emptyPlayer)).thenReturn(emptyPlayer);
+        assertEquals(emptyPlayer, playerService.deleteProgress(testPlayer.getId()));
+    }
 }
