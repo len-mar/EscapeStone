@@ -1,7 +1,7 @@
 import {Accordion, AccordionDetails, AccordionSummary, Avatar, Button, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
 import {Puzzle} from "./GamePage.tsx";
-import axios from "axios";
+import {DeleteConfirmationDialog} from "../DeleteConfirmationDialog.tsx";
 
 // TODO: format more nicely
 export function ProfilePage() {
@@ -10,6 +10,7 @@ export function ProfilePage() {
     const [score, setScore] = useState<number>()
     const [solvedPuzzleIds, setSolvedPuzzleIds] = useState<string[]>([])
     const [solvedPuzzles, setSolvedPuzzles] = useState<Puzzle[]>([])
+    const [deleteDialogOpen, isDeleteDialogOpen] = useState<boolean>(false);
 
     const getPuzzleDetails = async () => {
         const tempData: Puzzle[] = []
@@ -34,19 +35,22 @@ export function ProfilePage() {
     }
 
     const handleDelete = async () => {
-        axios.delete("api/players/" + userId).catch(error => console.error(error))
-        loadProfile()
+        isDeleteDialogOpen(true)
     }
 
+    // FIXME: loadProfile not being called after successful deletion
     useEffect(() => {
         loadProfile()
-    }, [])
+    }, [isDeleteDialogOpen, score])
 
     useEffect(() => {
         getPuzzleDetails()
     }, [solvedPuzzleIds])
 
     return <>
+        {deleteDialogOpen &&
+            <DeleteConfirmationDialog deleteDialogOpen={deleteDialogOpen} isDeleteDialogOpen={isDeleteDialogOpen}
+                                      id={userId}/>}
         <Typography variant={"h2"}>Profile</Typography>
         <Avatar alt="your profile pic" src="/src/avatar.png" sx={{width: 100, height: 100}}/>
 
