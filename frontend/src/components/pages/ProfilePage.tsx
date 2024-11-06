@@ -1,16 +1,18 @@
-import {Accordion, AccordionDetails, AccordionSummary, Avatar, Typography} from "@mui/material";
+import {Accordion, AccordionDetails, AccordionSummary, Avatar, Button, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
 import {Puzzle} from "./GamePage.tsx";
+import axios from "axios";
 
 // TODO: format more nicely
 export function ProfilePage() {
+    const [userId, setUserId] = useState<string>("")
     const [username, setUsername] = useState<string>("")
     const [score, setScore] = useState<number>()
     const [solvedPuzzleIds, setSolvedPuzzleIds] = useState<string[]>([])
     const [solvedPuzzles, setSolvedPuzzles] = useState<Puzzle[]>([])
 
     const getPuzzleDetails = async () => {
-        const tempData:Puzzle[] = []
+        const tempData: Puzzle[] = []
         for (let i = 0; i < solvedPuzzleIds.length; i++) {
             const puzzleResponse = await fetch('/api/puzzles/' + solvedPuzzleIds[i])
             const puzzleData = await puzzleResponse.json()
@@ -22,6 +24,7 @@ export function ProfilePage() {
         try {
             const userResponse = await fetch("api/players/me")
             const userData = await userResponse.json()
+            setUserId(userData.id)
             setUsername(userData.username)
             setScore(userData.score)
             setSolvedPuzzleIds(userData.solvedPuzzles)
@@ -29,6 +32,12 @@ export function ProfilePage() {
             console.error('Error during profile fetching:', error);
         }
     }
+
+    const handleDelete = async () => {
+        axios.delete("api/players/" + userId).catch(error => console.error(error))
+        loadProfile()
+    }
+
     useEffect(() => {
         loadProfile()
     }, [])
@@ -54,6 +63,8 @@ export function ProfilePage() {
             </AccordionDetails>
 
         </Accordion>
+
+        <Button color={"error"} onClick={handleDelete}>Delete Progress</Button>
 
     </>
 }

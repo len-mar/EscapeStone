@@ -56,4 +56,8 @@ public class PlayerController {
         return playerService.updateSolvedPuzzlesById(id, solvedPuzzle);
     }
 
+    @DeleteMapping("/{id}")
+    Player deleteProgress(@PathVariable String id){
+        return playerService.deleteProgress(id);
+    }
 }

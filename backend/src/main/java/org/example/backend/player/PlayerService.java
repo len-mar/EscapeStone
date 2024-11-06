@@ -38,4 +38,11 @@ public class PlayerService {
         player.setSolvedPuzzles(solvedPuzzles);
         return playerRepo.save(player);
     }
+
+    public Player deleteProgress(String id){
+        Player player = playerRepo.findById(id).orElseThrow();
+        player.setScore(0L);
+        player.setSolvedPuzzles(new ArrayList<>());
+        return playerRepo.save(player);
+    }
 }
