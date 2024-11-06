@@ -47,9 +47,13 @@ public class PlayerController {
     }
 
     @PutMapping("/{id}/score")
-    Player updateScoreById(@PathVariable String id, @RequestBody String score) {
+    Player updateScoreById(@PathVariable String id, @RequestBody StringRequestBody score) {
         return playerService.updateScoreById(id, score);
     }
 
+    @PutMapping("/{id}/solved")
+    Player updateSolvedPuzzlesById(@PathVariable String id, @RequestBody StringRequestBody solvedPuzzle) {
+        return playerService.updateSolvedPuzzlesById(id, solvedPuzzle);
+    }
 
 }

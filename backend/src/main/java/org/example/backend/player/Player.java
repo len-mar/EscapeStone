@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class Player implements UserDetails {
     private String username;
     private String password;
     private Long score;
-    private List<String> solvedPuzzles;
+    private ArrayList<String> solvedPuzzles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

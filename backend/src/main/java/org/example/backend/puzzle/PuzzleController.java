@@ -2,6 +2,7 @@ package org.example.backend.puzzle;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,8 +15,14 @@ public class PuzzleController {
 
     private final PuzzleService puzzleService;
 
-    @GetMapping
-    List<Puzzle> getRandomPuzzles() {
-        return puzzleService.getRandomPuzzles();
+    @GetMapping("/random/{playerId}")
+    List<Puzzle> getRandomPuzzles(@PathVariable String playerId) {
+        return puzzleService.getRandomPuzzles(playerId);
     }
+
+    @GetMapping("/{puzzleId}")
+    Puzzle getPuzzleById(@PathVariable String puzzleId){
+        return puzzleService.getPuzzleById(puzzleId);
+    }
+
 }

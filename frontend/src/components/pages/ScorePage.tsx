@@ -1,29 +1,46 @@
-
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
+import {useEffect, useState} from "react";
 
 export function ScorePage() {
-    const dummyScores = [{player: "John", score: 1000},
-        {player: "Jane", score: 4000},
-        {player: "Jack", score: 5000},
-        {player: "Jill", score: 200},
-    ].sort((a,b) => b.score - a.score)
+
+    type Player = {
+        username: string,
+        score: number
+    }
+
+    const [data, setData] = useState<Player[]>([])
+
+    const getData = async () => {
+        const tempArray: Player[] = []
+        const playerResponse = await fetch("/api/players")
+        const playerData = await playerResponse.json()
+        for (const player of playerData) {
+            tempArray.push(player)
+        }
+        setData(tempArray.sort((a, b) => b.score - a.score))
+    }
+
+    useEffect(() => {
+        getData()
+    }, [])
+
     return <>
-        <Typography variant={"h2"}>Scoreboard</Typography>
+        <Typography variant={"h2"}>🏆 Scoreboard 🏆</Typography>
         <TableContainer>
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell>
+                        <TableCell sx={{fontWeight: "bold"}}>
                             Player
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{fontWeight: "bold"}}>
                             Score
                         </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {dummyScores.map(entry => <TableRow>
-                        <TableCell key={entry.player}>{entry.player}</TableCell>
+                    {data.map(entry => <TableRow>
+                        <TableCell key={entry.username}>{entry.username}</TableCell>
                         <TableCell key={entry.score}>{entry.score}</TableCell>
                     </TableRow>)}
                 </TableBody>

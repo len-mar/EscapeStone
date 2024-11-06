@@ -1,4 +1,4 @@
 package org.example.backend.puzzle;
 
-public record Puzzle(String puzzleId, String title, String body, String solution) {
+public record Puzzle(String puzzleId, String body, String solution) {
 }
