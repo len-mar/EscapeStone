@@ -1,8 +1,10 @@
 package org.example.backend.player;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,7 @@ import java.util.List;
 public class PlayerController {
 
     private final PlayerService playerService;
+// TODO: check put/push/delete endpoints for correct user accessing
 
     // FIXME: anonymousUser handling to no longer throw errors
     // when there's no cookie context, no user authenticated, it throws a 500
@@ -57,7 +60,12 @@ public class PlayerController {
     }
 
     @DeleteMapping("/{id}")
-    Player deleteProgress(@PathVariable String id){
-        return playerService.deleteProgress(id);
+    ResponseEntity<Player> deleteProgress(@PathVariable String id){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Player currentPlayer = (Player) authentication.getPrincipal();
+        if(!currentPlayer.getId().equals(id)){
+            throw new AuthenticationException("Unauthorized"){};
+        }
+        return ResponseEntity.ok(playerService.deleteProgress(id));
     }
 }
