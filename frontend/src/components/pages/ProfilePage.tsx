@@ -38,10 +38,9 @@ export function ProfilePage() {
         isDeleteDialogOpen(true)
     }
 
-    // FIXME: loadProfile not being called after successful deletion
     useEffect(() => {
         loadProfile()
-    }, [isDeleteDialogOpen, score])
+    }, [])
 
     useEffect(() => {
         getPuzzleDetails()
@@ -50,7 +49,7 @@ export function ProfilePage() {
     return <>
         {deleteDialogOpen &&
             <DeleteConfirmationDialog deleteDialogOpen={deleteDialogOpen} isDeleteDialogOpen={isDeleteDialogOpen}
-                                      id={userId}/>}
+                                      id={userId} setScore={setScore} setSolvedPuzzleIds={setSolvedPuzzleIds}/>}
         <Typography variant={"h2"}>Profile</Typography>
         <Avatar alt="your profile pic" src="/src/avatar.png" sx={{width: 100, height: 100}}/>
 
@@ -58,7 +57,7 @@ export function ProfilePage() {
         <Typography align={"left"} variant={"h4"}>Score: {score}</Typography>
         <Typography align={"left"} variant={"h4"}>Solved Puzzles: </Typography>
         <Accordion>
-            <AccordionSummary>Click to expand list.</AccordionSummary>
+            <AccordionSummary>Click to expand.</AccordionSummary>
             <AccordionDetails>
                 {solvedPuzzles.length > 0 ? solvedPuzzles.map(p =>
                         <Typography
