@@ -1,7 +1,6 @@
 package org.example.backend.player;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -62,8 +61,9 @@ public class PlayerController {
     @DeleteMapping("/{id}")
     ResponseEntity<Player> deleteProgress(@PathVariable String id){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Player targetPlayer = playerService.getPlayerById(id);
         Player currentPlayer = (Player) authentication.getPrincipal();
-        if(!currentPlayer.getId().equals(id)){
+        if(!currentPlayer.getUsername().equals(targetPlayer.getUsername())){
             throw new AuthenticationException("Unauthorized"){};
         }
         return ResponseEntity.ok(playerService.deleteProgress(id));
