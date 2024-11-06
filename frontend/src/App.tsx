@@ -23,12 +23,12 @@ function App() {
             <Container fixed sx={{height: '500px', width: '600px', overflow: 'hidden', backgroundColor: "#B2C8BA", borderRadius: "5%", margin: "50px", backgroundImage:"url('src/pattern.jpg')"}}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', overflowY: 'scroll', height: '100%'}}>
                     <Routes>
-                        <Route path={"/"} element={<HomePage/>}/>
                         <Route path={"/login"}
                                element={<LoginPage signUpPage={signUpPage} isSignUpPage={isSignUpPage}/>}/>
                         <Route path={"/signup"}
                                element={<SignUpPage signUpPage={signUpPage} isSignUpPage={isSignUpPage}/>}/>
                         <Route element={<ProtectedRoutes/>}>
+                            <Route path={"/"} element={<HomePage/>}/>
                             <Route path={"/home"} element={<HomePage/>}/>
                             <Route path={"/scores"} element={<ScorePage/>}/>
                             <Route path={"/game"} element={<GamePage/>}/>
