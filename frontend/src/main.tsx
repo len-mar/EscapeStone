@@ -1,4 +1,3 @@
-import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
@@ -7,35 +6,47 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {CssBaseline} from "@mui/material";
 
 const theme = createTheme({
-    components:{
+    components: {
         MuiButton: {
-            styleOverrides:{
+            styleOverrides: {
                 root: {
                     fontSize: "20px"
                 }
             }
         },
         MuiAlert: {
-            styleOverrides:{
+            styleOverrides: {
                 root: {
                     fontSize: "15px"
                 }
             }
         },
         MuiTypography: {
-            styleOverrides:{
+            styleOverrides: {
                 root: {
-                    margin: "10px"}
+                    margin: "10px"
+                }
             }
         },
         MuiTableCell: {
-            styleOverrides:{
+            styleOverrides: {
                 root: {
-                    fontSize: "20px"}
+                    fontSize: "20px"
+                }
+            }
+        },
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    '& .MuiInputBase-input': {
+                        fontSize: "20px",
+                        color: "#3a5a40"
+                    }
+                }
             }
         }
     },
-    typography: { fontFamily: "cinzel decorative"},
+    typography: {fontFamily: "cinzel decorative"},
     palette: {
         mode: "light",
         primary: {
@@ -51,12 +62,10 @@ const theme = createTheme({
 });
 
 createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-        <BrowserRouter>
-            <ThemeProvider theme={theme}>
-                <CssBaseline/>
-                <App/>
-            </ThemeProvider>
-        </BrowserRouter>
-    </StrictMode>,
+    <BrowserRouter>
+        <ThemeProvider theme={theme}>
+            <CssBaseline/>
+            <App/>
+        </ThemeProvider>
+    </BrowserRouter>
 )
