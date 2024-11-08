@@ -13,7 +13,7 @@ import {Header} from "./components/Header.tsx";
 import {Footer} from "./components/Footer.tsx";
 import {ScorePage} from "./components/pages/ScorePage.tsx";
 
-
+// TODO: change loading logic to something less flickery
 function App() {
     const [signUpPage, isSignUpPage] = useState<boolean>(false);
 
