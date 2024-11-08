@@ -20,8 +20,14 @@ export function GamePage() {
     const getPuzzles = async () => {
         try {
             const playerId: string = await axios.get('/api/players/me').then(r => r.data.id);
-            const response = await axios.get('/api/puzzles/random/' + playerId);
-            setPuzzles(response.data);
+            const response: Puzzle[] = await fetch("api/puzzles/random/" + playerId).then(r => {
+                if (!r.ok) {
+                    throw new Error("error: " + r.status)
+                }
+                return r.json()
+            })
+            setPuzzles(response)
+
         } catch (error) {
             console.error('Error fetching puzzles:', error);
         } finally {
@@ -53,7 +59,7 @@ export function GamePage() {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Typography variant={"h3"}>Loading...</Typography>;
     }
 
     return <>
@@ -61,19 +67,23 @@ export function GamePage() {
             <Typography variant={"h5"}>Welcome to the room. This is puzzle #{puzzleNumber}.</Typography>}
 
         <Typography variant={"h3"}> {puzzles[puzzleNumber - 1].body}</Typography>
-            <TextField onChange={handleChange} value={guess} placeholder={"Enter your answer here."}></TextField>
-            <Button variant={"contained"} onClick={handleGuess}>Solve</Button>
-            {solved === "true" ?
-                <Alert severity="success">Correct! The answer was "{puzzles[puzzleNumber - 1].solution}". You can
-                    continue.</Alert> : solved === "false" &&
-                <Alert severity="error">Incorrect. Please try again.</Alert>}
-            <Button onClick={() => {
-                setPuzzleNumber(puzzleNumber + 1)
-                isSolved("empty")
-                setGuess("")
-                if (puzzleNumber === 3) {
-                    navigate('/home', {state: {roomDone: true}})
-                }
-            }}>{solved === "true" ? "Next" : "Skip"}</Button>
+        <TextField onChange={handleChange} onKeyDown={(e) => {
+            if (e.key === "Enter") {
+                handleGuess()
+            }
+        }} value={guess} placeholder={"Enter your answer here."}></TextField>
+        <Button variant={"contained"} onClick={handleGuess}>Solve</Button>
+        {solved === "true" ?
+            <Alert severity="success">Correct! The answer was "{puzzles[puzzleNumber - 1].solution}". You can
+                continue.</Alert> : solved === "false" &&
+            <Alert severity="error">Incorrect. Please try again.</Alert>}
+        <Button onClick={() => {
+            setPuzzleNumber(puzzleNumber + 1)
+            isSolved("empty")
+            setGuess("")
+            if (puzzleNumber === 3) {
+                navigate('/home', {state: {roomDone: true}})
+            }
+        }}>{solved === "true" ? "Next" : "Skip"}</Button>
     </>
 }
