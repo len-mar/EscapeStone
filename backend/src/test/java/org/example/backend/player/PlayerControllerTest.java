@@ -1,6 +1,7 @@
 package org.example.backend.player;
 
 import lombok.RequiredArgsConstructor;
+import org.example.backend.security.WithMockPlayer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,6 +13,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -142,5 +144,31 @@ class PlayerControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("false"));
     }
 
+    //FIXME: find workaround for cast exception from user to player (@mockuser)
+    @WithMockPlayer(id = "01")
+    @Test
+    void deleteProgress_deletesProgress_ifAuthorized() throws Exception {
+        Player existingPlayer = new Player("01", "test", "pw", 1234L, new ArrayList<>(Arrays.asList("test-puzzle", "test-puzzle2")));
+        testRepo.save(existingPlayer);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/players/" + existingPlayer.getId()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                                                                        {
+                                                                          "id": "01",
+                                                                          "username": "test",
+                                                                          "password": "pw",
+                                                                          "score": 0,
+                                                                          "solvedPuzzles": []
+                                                                        }
+                        """));
+    }
 
+    @WithMockPlayer(id = "02")
+    @Test
+    void deleteProgress_throwsException_ifNotAuthorized() throws Exception {
+        Player existingPlayer = new Player("01", "test", "pw", 1234L, new ArrayList<>(Arrays.asList("test-puzzle", "test-puzzle2")));
+        testRepo.save(existingPlayer);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/players/" + existingPlayer.getId()))
+                .andExpect(MockMvcResultMatchers.status().isInternalServerError());
+    }
 }
