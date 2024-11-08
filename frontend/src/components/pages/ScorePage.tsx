@@ -9,20 +9,33 @@ export function ScorePage() {
     }
 
     const [data, setData] = useState<Player[]>([])
+    const [loading, setLoading] = useState<boolean>(true);
+
 
     const getData = async () => {
-        const tempArray: Player[] = []
-        const playerResponse = await fetch("/api/players")
-        const playerData = await playerResponse.json()
-        for (const player of playerData) {
-            tempArray.push(player)
+        try {
+            const tempArray: Player[] = []
+            const playerResponse = await fetch("/api/players")
+            const playerData = await playerResponse.json()
+            for (const player of playerData) {
+                tempArray.push(player)
+            }
+            setData(tempArray.sort((a, b) => b.score - a.score))
+        } catch (error) {
+            console.error('Error during score fetching:', error);
+
+        } finally {
+            setLoading(false)
         }
-        setData(tempArray.sort((a, b) => b.score - a.score))
     }
 
     useEffect(() => {
         getData()
     }, [])
+
+    if (loading) {
+        return <Typography variant={"h3"}>Loading...</Typography>;
+    }
 
     return <>
         <Typography variant={"h2"}>🏆 Scoreboard 🏆</Typography>

@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {Navigate, Outlet} from "react-router-dom";
 import axios from "axios";
+import {Typography} from "@mui/material";
 
 export default function ProtectedRoutes(){
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -18,7 +19,9 @@ export default function ProtectedRoutes(){
             });
     }, []);
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) {
+        return <Typography variant={"h3"}>Loading...</Typography>;
+    }
 
     return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 }

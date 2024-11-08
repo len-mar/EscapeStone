@@ -5,6 +5,7 @@ import {DeleteConfirmationDialog} from "../DeleteConfirmationDialog.tsx";
 
 // TODO: format more nicely
 export function ProfilePage() {
+    const [loading, setLoading] = useState(true);
     const [userId, setUserId] = useState<string>("")
     const [username, setUsername] = useState<string>("")
     const [score, setScore] = useState<number>()
@@ -31,6 +32,8 @@ export function ProfilePage() {
             setSolvedPuzzleIds(userData.solvedPuzzles)
         } catch (error) {
             console.error('Error during profile fetching:', error);
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -45,6 +48,10 @@ export function ProfilePage() {
     useEffect(() => {
         getPuzzleDetails()
     }, [solvedPuzzleIds])
+
+    if (loading) {
+        return <Typography variant={"h3"}>Loading...</Typography>;
+    }
 
     return <>
         {deleteDialogOpen &&
