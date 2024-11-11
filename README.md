@@ -12,5 +12,5 @@ Small escape room-type app. Players can create an account and play random word-b
 - Integration & Unit Testing using MockMvc & Mockito
 
 ## 👁️ Sneak Peek
-<img height="400" alt="Login Screen" src="https://github.com/user-attachments/assets/1a90a500-1e66-4ee2-8c10-40fe8f36035c">
-<img height="400" alt="Solved Puzzle Screen" src="https://github.com/user-attachments/assets/63cbde10-22f7-46f0-806e-ef76df28b66b">
+<img height="300" alt="Login Screen" src="https://github.com/user-attachments/assets/1a90a500-1e66-4ee2-8c10-40fe8f36035c">
+<img height="300" alt="Solved Puzzle Screen" src="https://github.com/user-attachments/assets/63cbde10-22f7-46f0-806e-ef76df28b66b">
