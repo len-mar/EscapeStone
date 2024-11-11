@@ -1,13 +1,11 @@
 import {Alert, Button, TextField, Typography} from "@mui/material";
 import React, {useEffect, useState} from "react";
+import {Puzzle} from "../../App.tsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+// TODO: format more nicely
 
-export type Puzzle = {
-    puzzleId: string,
-    body: string,
-    solution: string
-}
+
 
 export function GamePage() {
     const [loading, setLoading] = useState(true);
