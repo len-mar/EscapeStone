@@ -3,8 +3,8 @@ import React, {useEffect, useState} from "react";
 import {Puzzle} from "../../App.tsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-// TODO: format more nicely
 
+// TODO: format more nicely
 
 
 export function GamePage() {
@@ -70,7 +70,7 @@ export function GamePage() {
                 handleGuess()
             }
         }} value={guess} placeholder={"Enter your answer here."}></TextField>
-        <Button variant={"contained"} onClick={handleGuess}>Solve</Button>
+        <Button disabled={solved === "true"} variant={"contained"} onClick={handleGuess}>Solve</Button>
         {solved === "true" ?
             <Alert severity="success">Correct! The answer was "{puzzles[puzzleNumber - 1].solution}". You can
                 continue.</Alert> : solved === "false" &&
