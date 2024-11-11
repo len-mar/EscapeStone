@@ -41,38 +41,35 @@ export function ProfilePage() {
 
 
     useEffect(() => {
-        if(playerData){
+        if (playerData) {
             getPuzzleDetails()
         }
     }, [playerData])
 
+    if (!loading) {
+        return <>
+            {deleteDialogOpen &&
+                <DeleteConfirmationDialog deleteDialogOpen={deleteDialogOpen} isDeleteDialogOpen={isDeleteDialogOpen}
+                                          playerData={playerData} setPlayerData={setPlayerData}/>}
+            <Typography variant={"h2"}>Profile</Typography>
+            <Avatar alt="your profile pic" src="/src/avatar.png" sx={{width: 100, height: 100}}/>
 
-    if (loading) {
-        return <Typography variant={"h3"}>Loading...</Typography>;
+            <Typography align={"left"} variant={"h4"}>Username: {playerData?.username}</Typography>
+            <Typography align={"left"} variant={"h4"}>Score: {playerData?.score}</Typography>
+            <Typography align={"left"} variant={"h4"}>Solved Puzzles: </Typography>
+            <Accordion>
+                <AccordionSummary>Click to expand.</AccordionSummary>
+                <AccordionDetails>
+                    {solvedPuzzleTexts.length > 0 ? solvedPuzzleTexts.map(p =>
+                            <Typography
+                                align={"left"} key={p.puzzleId} variant={"body1"}>{p.solution}:{p.body}</Typography>) :
+                        <Typography variant={"body2"}>No puzzles solved yet.</Typography>}
+                </AccordionDetails>
+
+            </Accordion>
+
+            <Button color={"error"} onClick={handleDelete}>Delete Progress</Button>
+
+        </>
     }
-
-    return <>
-        {deleteDialogOpen &&
-            <DeleteConfirmationDialog deleteDialogOpen={deleteDialogOpen} isDeleteDialogOpen={isDeleteDialogOpen}
-                                      playerData={playerData} setPlayerData={setPlayerData}/>}
-        <Typography variant={"h2"}>Profile</Typography>
-        <Avatar alt="your profile pic" src="/src/avatar.png" sx={{width: 100, height: 100}}/>
-
-        <Typography align={"left"} variant={"h4"}>Username: {playerData?.username}</Typography>
-        <Typography align={"left"} variant={"h4"}>Score: {playerData?.score}</Typography>
-        <Typography align={"left"} variant={"h4"}>Solved Puzzles: </Typography>
-        <Accordion>
-            <AccordionSummary>Click to expand.</AccordionSummary>
-            <AccordionDetails>
-                {solvedPuzzleTexts.length > 0 ? solvedPuzzleTexts.map(p =>
-                        <Typography
-                            align={"left"} key={p.puzzleId} variant={"body1"}>{p.solution}:{p.body}</Typography>) :
-                    <Typography variant={"body2"}>No puzzles solved yet.</Typography>}
-            </AccordionDetails>
-
-        </Accordion>
-
-        <Button color={"error"} onClick={handleDelete}>Delete Progress</Button>
-
-    </>
 }

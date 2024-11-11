@@ -33,10 +33,7 @@ export function ScorePage() {
         getData()
     }, [])
 
-    if (loading) {
-        return <Typography variant={"h3"}>Loading...</Typography>;
-    }
-
+    if (!loading) {
     return <>
         <Typography variant={"h2"}>🏆 Scoreboard 🏆</Typography>
         <TableContainer>
@@ -61,4 +58,4 @@ export function ScorePage() {
 
         </TableContainer>
     </>
-}
+}}

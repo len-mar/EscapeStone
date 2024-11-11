@@ -26,7 +26,6 @@ export type Player = {
     solvedPuzzles:string[]
 }
 
-// TODO: change loading logic to something less flickery
 function App() {
     const [signUpPage, isSignUpPage] = useState<boolean>(false);
 

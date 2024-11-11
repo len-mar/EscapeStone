@@ -54,25 +54,23 @@ export function GamePage() {
         getPuzzles()
     }, []);
 
-    if (loading) {
-        return <Typography variant={"h3"}>Loading...</Typography>;
+    if (!loading) {
+        return <>
+            {puzzleNumber === 1 &&
+                <Typography variant={"h5"}>Welcome to the room. This is puzzle #{puzzleNumber}.</Typography>}
+
+            <Typography variant={"h3"}> {puzzles[puzzleNumber - 1].body}</Typography>
+            <TextField onChange={handleChange} onKeyDown={(e) => {
+                if (e.key === "Enter" && solved !== "true") {
+                    handleGuess()
+                }
+            }} value={guess} placeholder={"Enter your answer here."}></TextField>
+            <Button disabled={solved === "true"} variant={"contained"} onClick={handleGuess}>Solve</Button>
+            {solved === "true" ?
+                <Alert severity="success">Correct! The answer was "{puzzles[puzzleNumber - 1].solution}". You can
+                    continue.</Alert> : solved === "false" &&
+                <Alert severity="error">Incorrect. Please try again.</Alert>}
+            <Button onClick={handleNext}>{solved === "true" ? "Next" : "Skip"}</Button>
+        </>
     }
-
-    return <>
-        {puzzleNumber === 1 &&
-            <Typography variant={"h5"}>Welcome to the room. This is puzzle #{puzzleNumber}.</Typography>}
-
-        <Typography variant={"h3"}> {puzzles[puzzleNumber - 1].body}</Typography>
-        <TextField onChange={handleChange} onKeyDown={(e) => {
-            if (e.key === "Enter" && solved !== "true") {
-                handleGuess()
-            }
-        }} value={guess} placeholder={"Enter your answer here."}></TextField>
-        <Button disabled={solved === "true"} variant={"contained"} onClick={handleGuess}>Solve</Button>
-        {solved === "true" ?
-            <Alert severity="success">Correct! The answer was "{puzzles[puzzleNumber - 1].solution}". You can
-                continue.</Alert> : solved === "false" &&
-            <Alert severity="error">Incorrect. Please try again.</Alert>}
-        <Button onClick={handleNext}>{solved === "true" ? "Next" : "Skip"}</Button>
-    </>
 }
