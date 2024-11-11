@@ -13,6 +13,18 @@ import {Header} from "./components/Header.tsx";
 import {Footer} from "./components/Footer.tsx";
 import {ScorePage} from "./components/pages/ScorePage.tsx";
 
+export type Puzzle = {
+    puzzleId: string,
+    body: string,
+    solution: string
+}
+
+export type Player = {
+    id: string,
+    username: string,
+    score: number,
+    solvedPuzzles:string[]
+}
 
 function App() {
     const [signUpPage, isSignUpPage] = useState<boolean>(false);
