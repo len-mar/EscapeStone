@@ -3,18 +3,18 @@ import {useEffect, useState} from "react";
 
 export function ScorePage() {
 
-    type Player = {
+    type ScoreboardPlayer = {
         username: string,
         score: number
     }
 
-    const [data, setData] = useState<Player[]>([])
+    const [data, setData] = useState<ScoreboardPlayer[]>([])
     const [loading, setLoading] = useState<boolean>(true);
 
 
     const getData = async () => {
         try {
-            const tempArray: Player[] = []
+            const tempArray: ScoreboardPlayer[] = []
             const playerResponse = await fetch("/api/players")
             const playerData = await playerResponse.json()
             for (const player of playerData) {
@@ -52,9 +52,9 @@ export function ScorePage() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data.map(entry => <TableRow>
+                    {data.map((entry, index) => <TableRow key={index + entry.username}>
                         <TableCell key={entry.username}>{entry.username}</TableCell>
-                        <TableCell key={entry.score}>{entry.score}</TableCell>
+                        <TableCell key={index}>{entry.score}</TableCell>
                     </TableRow>)}
                 </TableBody>
             </Table>
