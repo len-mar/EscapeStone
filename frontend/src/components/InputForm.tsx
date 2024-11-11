@@ -5,7 +5,6 @@ import {useNavigate} from "react-router-dom";
 type Props = {
     signUpPage:boolean
 }
-// TODO: user feedback when logging in with incorrect credentials
 
 export function InputForm(props: Props) {
     const [usernameInput, setUsernameInput] = useState<string>("")
